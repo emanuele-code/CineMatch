@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema - Login & Registrazione</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-registrazione.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
+            <ul class="nav-links">
+                <li><a href="#features">Come funziona</a></li>
+                <li><a href="">Registrati</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="form-wrapper">
+        <div id="registration-form" class="form-container active">
+            <h2>Registrazione</h2>
+            <form action="#">
+                <label for="reg-username">Username:</label>
+                <input type="text" id="reg-username" name="username" required>
+
+                <label for="reg-email">Email:</label>
+                <input type="email" id="reg-email" name="email" required>
+
+                <label for="reg-password">Password:</label>
+                <input type="password" id="reg-password" name="password" required>
+
+                <button type="submit">Registrati</button>
+            </form>
+            <div class="toggle-link" onclick="toggleForms()">Hai già un account? Accedi</div>
+        </div>
+
+        <div id="login-form" class="form-container">
+            <h2>Login</h2>
+            <form action="#">
+                <label for="login-username">Username o Email:</label>
+                <input type="text" id="login-username" name="username" required>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+
+                <button type="submit">Accedi</button>
+            </form>
+            <div class="toggle-link" onclick="toggleForms()">Non hai un account? Registrati</div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='javascript/registrazione-toggle.js') }}"></script>
+</body>
+</html>

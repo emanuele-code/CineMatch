@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="it">
+  
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CineMatch – Trova il tuo prossimo film preferito</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <header>
     <nav class="navbar">
-      <div class="logo">🎬 CineMatch</div>
+      <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
       <ul class="nav-links">
         <li><a href="#features">Come funziona</a></li>
-        <li><a href="#signup">Registrati</a></li>
+        <li><a href="{{ url_for('registrazione') }}">Registrati</a></li>
       </ul>
     </nav>
   </header>
@@ -47,7 +49,7 @@
   <section class="signup" id="signup">
     <h2>Unisciti a CineMatch</h2>
     <p>Inizia il tuo viaggio nel mondo del cinema oggi stesso.</p>
-    <a href="/register" class="cta-button dark">Registrati ora</a>
+    <a href="{{ url_for('registrazione') }}" class="cta-button dark">Registrati ora</a>
   </section>
  
   <footer>

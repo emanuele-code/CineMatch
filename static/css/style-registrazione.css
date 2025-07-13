@@ -1,0 +1,138 @@
+/* Generali */
+body {
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.6;
+    background-color: #111;
+    color: #fff;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    background: url('/static/images/cinema_background.jpg') center/cover no-repeat;
+    background-position: center top 30%;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+
+header {
+  background-color: #1c1c1c;
+  padding: 0.4rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #ffcc00;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #f5f5f5;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #ff4c4c;
+}
+
+/* Form centering */
+.form-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px; /* spazio per non sovrapporre header */
+    z-index: 2;
+}
+
+/* Form */
+.form-container {
+    background-color: #222;
+    padding: 20px 30px;
+    border-radius: 8px;
+    width: 300px;
+    display: none;
+    margin-top: -300px; /* sposta il form più in alto */
+}
+
+.form-container.active {
+    display: block;
+}
+
+h2 {
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: none;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e6b800;
+}
+
+.toggle-link {
+    margin-top: 15px;
+    text-align: center;
+    cursor: pointer;
+    color: #ffcc00;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.toggle-link:hover {
+    color: #e6b800;
+}
