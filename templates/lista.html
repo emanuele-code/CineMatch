@@ -24,7 +24,9 @@
       {% for film in film_list %}
       <div class="movie-card">
         <div class="movie-cover">
-          <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
+          <a href="{{ url_for('movie_card', film_id=film.id) }}">
+            <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
+          </a>
         </div>
         <div class="movie-meta">
           <div class="rating-row">

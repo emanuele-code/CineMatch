@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ film.titolo }} – CineMatch</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-movie-card.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('lista') }}">Lista</a></li>
+        <li><a href="{{ url_for('registrazione') }}">Registrati</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="film-detail">
+    <div class="film-info">
+      <div class="film-cover">
+        <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
+      </div>
+      <div class="film-text">
+        <div class="titolo-rating">
+          <h1>{{ film.titolo }}</h1>
+          <div class="rating-status">
+            <div class="stars">{{ '★' * film.stelle }}{{ '☆' * (5 - film.stelle) }}</div>
+            <div class="movie-status {{ film.stato }}">
+              {% if film.stato == 'visto' %}👁️ Visto{% else %}🎯 Da vedere{% endif %}
+            </div>
+          </div>
+        </div>
+
+        <p><strong>Genere:</strong> {{ film.genere }}</p>
+        <p><strong>Uscita:</strong> {{ film.uscita }}</p>
+        <p><strong>Regista:</strong> {{ film.regista }}</p>
+        <p class="trama"><strong>Trama:</strong> {{ film.trama }}</p>
+      </div>
+    </div>
+
+    <section class="simili">
+      <h2>Film Consigliati</h2>
+      <div class="carousel">
+        {% for suggerito in consigliati %}
+        <div class="carousel-item">
+          <a href="{{ url_for('movie_card', film_id=suggerito.id) }}">
+            <img src="{{ url_for('static', filename=suggerito.immagine) }}" alt="{{ suggerito.titolo }}">
+          </a>
+          <p>{{ suggerito.titolo }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
