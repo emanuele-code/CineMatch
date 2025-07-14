@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Mia Lista Film – CineMatch</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-logged-home-page.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('lista') }}">Lista</a></li>
+        <li><a href="{{ url_for('registrazione') }}">Registrati</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+    <main>
+        <section class="container">
+
+            <div class="slider-wrapper">
+            <div class="slider">
+                {% for film in film_list[:5] %}
+                <a href="{{ url_for('movie_card', film_id=film.id) }}">
+                    <img id="slide-{{ film.id }}" src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}" />
+                </a>
+                {% endfor %}
+            </div>
+            </div>
+
+            <div class="slider-nav">
+            {% for film in film_list[:5] %}
+                <a href="#slide-{{ film.id }}"></a>
+            {% endfor %}
+            </div>
+
+            <hr class="divider">
+        </section>
+
+
+        <section class='container'>
+            <h1>Secondo i tuoi gusti</h1>
+            <div class="movie-grid">
+            {% for film in film_list[:8] %}
+            <div class="movie-card">
+                <div class="movie-cover">
+                <a href="{{ url_for('movie_card', film_id=film.id) }}">
+                    <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
+                </a>
+                </div>
+                <div class="movie-meta">
+                <div class="rating-row">
+                    <div class="stars">
+                    {{ '★' * film.stelle }}{{ '☆' * (5 - film.stelle) }}
+                    </div>
+                    <div class="movie-status {{ film.stato }}">
+                        {% if film.stato == 'visto' %}👁️ Visto{% else %}🎯 Da vedere{% endif %}
+                    </div>
+                </div>
+                <p><strong>Titolo:</strong> {{ film.titolo }}</p>
+                <p><strong>Regista:</strong> {{ film.regista }}</p>
+                <p><strong>Genere:</strong> {{ film.genere }}</p>
+                <p><strong>Uscita:</strong> {{ film.uscita }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+            
+            <hr class="divider">
+        </section>
+
+
+        <section class='container'>
+        <h1>Popolari</h1>
+        <div class="horizontal-slider-wrapper">
+            <div class="horizontal-slider">
+            {% for film in film_list[:8] %}
+            <div class="movie-card horizontal-card">
+                <div class="movie-cover">
+                <a href="{{ url_for('movie_card', film_id=film.id) }}">
+                    <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
+                </a>
+                </div>
+                <div class="movie-meta">
+                <div class="rating-row">
+                    <div class="stars">
+                    {{ '★' * film.stelle }}{{ '☆' * (5 - film.stelle) }}
+                    </div>
+                    <div class="movie-status {{ film.stato }}">
+                    {% if film.stato == 'visto' %}👁️ Visto{% else %}🎯 Da vedere{% endif %}
+                    </div>
+                </div>
+                <p><strong>Titolo:</strong> {{ film.titolo }}</p>
+                <p><strong>Regista:</strong> {{ film.regista }}</p>
+                <p><strong>Genere:</strong> {{ film.genere }}</p>
+                <p><strong>Uscita:</strong> {{ film.uscita }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+        <hr class="divider">
+        </section>
+
+        
+    </main>
+
+    
+
+    <footer>
+        <p>&copy; 2025 CineMatch. Tutti i diritti riservati.</p>
+    </footer>
+
+
+</body>
+</html>

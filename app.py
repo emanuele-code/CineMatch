@@ -133,6 +133,10 @@ def movie_card(film_id):
     return render_template('movie-card.html', film=film, consigliati=consigliati)
 
 
+@app.route('/logged-home-page')
+def logged_home_page():
+    return render_template('logged-home-page.html', film_list=film_list)
+
 
 
 if __name__ == "__main__":
