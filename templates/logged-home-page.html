@@ -25,7 +25,7 @@
 
             <div class="slider-wrapper">
             <div class="slider">
-                {% for film in film_list[:5] %}
+                {% for film in ultime_uscite %}
                 <a href="{{ url_for('movie_card', film_id=film.id) }}">
                     <img id="slide-{{ film.id }}" src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}" />
                 </a>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="slider-nav">
-            {% for film in film_list[:5] %}
+            {% for film in ultime_uscite %}
                 <a href="#slide-{{ film.id }}"></a>
             {% endfor %}
             </div>

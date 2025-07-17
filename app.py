@@ -57,16 +57,27 @@ def logged_home_page():
     if not id_utente:
         return redirect(url_for('login.login'))
     
-    utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
+    utente     = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
     film_visti = utente.get('filmVisti', [])
 
-    if not film_visti:
-        film_list = []
-    else:
+    # Film visti (da ObjectId in filmVisti)
+    if film_visti:
         film_list = list(mongo.db.films.find({'_id': {'$in': film_visti}}))
-        for film in film_list:
-            film['_id'] = str(film['_id'])
-    return render_template('logged-home-page.html', film_list=film_list)
+    else:
+        film_list = []
+
+    # Ultime uscite dal 2018 in poi e li recupera anche in modo random
+    ultime_uscite = list(mongo.db.films.aggregate([
+        {'$match': {'uscita': {'$gte': '2018'}}},
+        {'$sample': {'size': 5}}
+    ]))
+
+    # Converto _id in stringa per entrambe le liste
+    for film in film_list + ultime_uscite:
+        film['_id'] = str(film['_id'])
+
+    return render_template('logged-home-page.html', film_list=film_list, ultime_uscite=ultime_uscite)
+
 
 
 
