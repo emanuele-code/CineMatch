@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session, redirect, url_for
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 from src.registrazione import registrazione_bp  # import blueprint
 from src.login import login_bp
 
@@ -52,9 +53,19 @@ def movie_card(film_id):
 
 @app.route('/logged-home-page')
 def logged_home_page():
-    film_list = list(mongo.db.films.find())
-    for film in film_list:
-        film['_id'] = str(film['id'])
+    id_utente = session.get('id_utente')
+    if not id_utente:
+        return redirect(url_for('login.login'))
+    
+    utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
+    film_visti = utente.get('filmVisti', [])
+
+    if not film_visti:
+        film_list = []
+    else:
+        film_list = list(mongo.db.films.find({'_id': {'$in': film_visti}}))
+        for film in film_list:
+            film['_id'] = str(film['_id'])
     return render_template('logged-home-page.html', film_list=film_list)
 
 

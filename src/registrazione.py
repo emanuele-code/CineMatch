@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash
 
 # il primo attributo è il nome del BP (sto usando url_for) il secondo __name__ identifica il modulo in cui si trova il BP
@@ -26,6 +26,7 @@ def registrazione():
             "filmVisti": []
         })
 
+        id_utente['id_utente'] = str(utente_esistente['_id'])
         return redirect(url_for('logged_home_page'))
     # Se invece è una richiesta GET
     return render_template('registrazione.html', show_login = False)

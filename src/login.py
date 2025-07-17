@@ -1,5 +1,5 @@
 # login.py
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 
 login_bp = Blueprint('login', __name__)
 
@@ -21,6 +21,7 @@ def login():
             # Ritorna il template direttamente
             return render_template('registrazione.html', show_login=True)
         else:   
-            return redirect(url_for('logged_home_page'))    
+            session['id_utente'] = str(utente_esistente['_id'])
+            return redirect(url_for('logged_home_page'))   
 
     return render_template('registrazione.html', show_login=True)
