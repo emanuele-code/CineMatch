@@ -46,7 +46,7 @@
         <section class='container'>
             <h1>Secondo i tuoi gusti</h1>
             <div class="movie-grid">
-            {% for film in film_list[:8] %}
+            {% for film in consigliati %}
             <div class="movie-card">
                 <div class="movie-cover">
                 <a href="{{ url_for('movie_card', film_id=film.id) }}">
@@ -79,7 +79,7 @@
         <h1>Popolari</h1>
         <div class="horizontal-slider-wrapper">
             <div class="horizontal-slider">
-            {% for film in film_list[:8] %}
+            {% for film in consigliati %}
             <div class="movie-card horizontal-card">
                 <div class="movie-cover">
                 <a href="{{ url_for('movie_card', film_id=film.id) }}">

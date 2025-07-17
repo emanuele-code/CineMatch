@@ -56,27 +56,39 @@ def logged_home_page():
     id_utente = session.get('id_utente')
     if not id_utente:
         return redirect(url_for('login.login'))
-    
-    utente     = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
-    film_visti = utente.get('filmVisti', [])
 
-    # Film visti (da ObjectId in filmVisti)
-    if film_visti:
-        film_list = list(mongo.db.films.find({'_id': {'$in': film_visti}}))
-    else:
-        film_list = []
+    utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
+    film_visti_ids = utente.get('filmVisti', [])
 
-    # Ultime uscite dal 2018 in poi e li recupera anche in modo random
+    # Recupera i documenti dei film visti
+    film_visti = list(mongo.db.films.find({'_id': {'$in': film_visti_ids}}))
+
+    # Estrai i generi preferiti
+    generi_preferiti = list({film['genere'] for film in film_visti})
+
+    # Film consigliati per genere, esclusi quelli già visti
+    consigliati = list(mongo.db.films.aggregate([
+        {
+            '$match': {
+                'genere': {'$in': generi_preferiti},
+                '_id': {'$nin': film_visti_ids}
+            }
+        },
+        { '$sample': { 'size': 16 } }
+    ]))
+
+    # Ultime uscite random dal 2018 in poi
     ultime_uscite = list(mongo.db.films.aggregate([
         {'$match': {'uscita': {'$gte': '2018'}}},
         {'$sample': {'size': 5}}
     ]))
 
-    # Converto _id in stringa per entrambe le liste
-    for film in film_list + ultime_uscite:
+    # Converto _id in stringa per Jinja
+    for film in film_visti + ultime_uscite + consigliati:
         film['_id'] = str(film['_id'])
 
-    return render_template('logged-home-page.html', film_list=film_list, ultime_uscite=ultime_uscite)
+    return render_template('logged-home-page.html', film_visti=film_visti, ultime_uscite=ultime_uscite, consigliati=consigliati)
+
 
 
 
