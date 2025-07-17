@@ -17,12 +17,10 @@ def login():
         })
 
         if not utente_esistente:
-            flash("Utente non trovato!", "errore")
+            flash("Credenziali errate!", "errore")
             # Ritorna il template direttamente
             return render_template('registrazione.html', show_login=True)
-
-        # (Qui normalmente dovresti verificare la password)
-        flash("Login effettuato con successo!", "success")
-        return redirect(url_for('logged_home_page'))
+        else:   
+            return redirect(url_for('logged_home_page'))    
 
     return render_template('registrazione.html', show_login=True)
