@@ -22,7 +22,7 @@
 
     <main class="form-wrapper">
 
-        <div id="registration-form" class="form-container active">
+        <div id="registration-form" class="form-container {% if not show_login %}active{% endif %}">            
             <h2>Registrazione</h2>
             
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -50,9 +50,20 @@
             <div class="toggle-link" onclick="toggleForms()">Hai già un account? Accedi</div>
         </div>
 
-        <div id="login-form" class="form-container">
+        <div id="login-form" class="form-container {% if show_login %}active{% endif %}">
             <h2>Login</h2>
-            <form action="#" method="POST">
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('login.login') }}" method="POST">
                 <label for="login-username">Username o Email:</label>
                 <input type="text" id="login-username" name="username" required>
 

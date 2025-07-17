@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_pymongo import PyMongo
 from src.registrazione import registrazione_bp  # import blueprint
+from src.login import login_bp
 
 app = Flask(__name__)
 app.secret_key = 'key' # serve a flask per gestire la seessione ad esempio per usare flash() che richiede una sessione per funzionare
@@ -13,9 +14,11 @@ mongo = PyMongo(app)
 
 # Passo la connessione mongo al blueprint così può usarla
 registrazione_bp.mongo = mongo
+login_bp.mongo         = mongo
 
 # Registra il blueprint nella app
 app.register_blueprint(registrazione_bp, url_prefix='/registrazione')
+app.register_blueprint(login_bp, url_prefix='/login')
 
 
 @app.route('/')

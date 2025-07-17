@@ -1,4 +1,4 @@
-let isRegistrationVisible = true;
+let isRegistrationVisible = document.getElementById('registration-form').classList.contains('active');
 
 function toggleForms() {
     isRegistrationVisible = !isRegistrationVisible;
@@ -14,6 +14,4 @@ function toggleForms() {
         formRegistrazione.classList.remove('active');
         loginForm.classList.add('active');
     }
-
-    isRegistrazioneVisibile = !mostraLogin;
 }

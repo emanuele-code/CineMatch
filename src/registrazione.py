@@ -16,7 +16,7 @@ def registrazione():
         utente_esistente = registrazione_bp.mongo.db.utenti.find_one({"email": email})
         if utente_esistente:
             flash("Email già registrata!", "errore")
-            return redirect(url_for('registrazione.registrazione'))
+            return render_template('registrazione.html', show_login=False)
 
         hashed_pw = generate_password_hash(password)
         registrazione_bp.mongo.db.utenti.insert_one({
