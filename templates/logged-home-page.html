@@ -46,7 +46,7 @@
         <section class='container'>
             <h1>Secondo i tuoi gusti</h1>
             <div class="movie-grid">
-            {% for film in consigliati %}
+            {% for film in consigliati[:16] %}
             <div class="movie-card">
                 <div class="movie-cover">
                 <a href="{{ url_for('movie_card', film_id=film.id) }}">
@@ -115,6 +115,9 @@
     <footer>
         <p>&copy; 2025 CineMatch. Tutti i diritti riservati.</p>
     </footer>
+
+
+    <script src="{{ url_for('static', filename='javascript/carosello.js') }}"></script>
 
 
 </body>
