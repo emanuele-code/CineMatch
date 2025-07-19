@@ -26,9 +26,23 @@
         <div class="titolo-rating">
           <h1>{{ film.titolo }}</h1>
           <div class="rating-status">
+
             <div class="stars">{{ '★' * film.stelle }}{{ '☆' * (5 - film.stelle) }}</div>
-            <div class="movie-status {{ film.stato }}">
-              {% if film.stato == 'visto' %}👁️ Visto{% else %}🎯 Da vedere{% endif %}
+            
+            <div class="status-wrapper">
+              <div class="movie-status {{ film.stato }}" onclick="toggleDropdown('{{film._id}}')">
+                {% if film.stato == 'visto' %}👁️ Visto
+                {% elif film.stato == 'da vedere' %}🎯 Da vedere
+                {% else %}➕ Imposta stato{% endif %}
+              </div>
+
+              <div class="status-dropdown" id="dropdown-{{ film._id }}" style="display:none;">
+                <div onclick="updateStatus('{{ film._id }}', 'visto')">👁️ Visto</div>
+                <hr>
+                <div onclick="updateStatus('{{ film._id }}', 'da vedere')">🎯 Da vedere</div>
+                <hr>
+                <div onclick="updateStatus('{{ film._id }}', null)">❌ Nessuno</div>
+              </div>
             </div>
           </div>
         </div>
@@ -55,5 +69,11 @@
     </section>
 
   </main>
+
+
+
+  <script src="{{ url_for('static', filename='javascript/toggle-droplist.js') }}"></script>
+
+
 </body>
 </html>
