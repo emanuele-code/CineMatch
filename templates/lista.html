@@ -46,7 +46,7 @@
             </div>
 
 
-            <div class="movie-status {{ film.stato_utente }}">
+            <div class="movie-status {{ film.stato_utente.replace(' ', '-') }}">
               {% if film.stato_utente == 'visto' %}
                 👁️ Visto
               {% elif film.stato_utente == 'da vedere' %}

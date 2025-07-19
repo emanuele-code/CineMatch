@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 from src.registrazione import registrazione_bp  # import blueprint
 from src.login import login_bp
 from src.gestione_voti import voti_bp
+from src.gestione_stati import stati_bp
 
 app = Flask(__name__)
 app.secret_key = 'key'  # serve a flask per gestire la sessione
@@ -18,11 +19,13 @@ mongo = PyMongo(app)
 registrazione_bp.mongo = mongo
 login_bp.mongo = mongo
 voti_bp.mongo  = mongo
+stati_bp.mongo = mongo
 
 # Registra i blueprint
 app.register_blueprint(registrazione_bp, url_prefix='/registrazione')
 app.register_blueprint(login_bp, url_prefix='/login')
 app.register_blueprint(voti_bp, url_prefix='')
+app.register_blueprint(stati_bp, url_prefix='')
 
 
 @app.route('/')
