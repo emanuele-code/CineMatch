@@ -12,7 +12,13 @@
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
       <ul class="nav-links">
         <li><a href="{{ url_for('lista') }}">Lista</a></li>
-        <li><a href="{{ url_for('registrazione.registrazione') }}">Registrati</a></li>
+
+        <li class="dropdown">
+          <a href="#" id="userDropdown">{{ username }}</a>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="{{ url_for('logout') }}">Logout</a>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -86,6 +92,7 @@
   <script src="{{ url_for('static', filename='javascript/aggiorna-stato.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/star-animation.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/set-stars.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/toggle-user-menu.js') }}"></script>
 
 
 

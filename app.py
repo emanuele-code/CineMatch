@@ -60,9 +60,9 @@ def lista():
 
     # Passa anche la variabile utente_loggato per template
     utente_loggato = 'id_utente' in session
-    print(film_list)
+    username = utente.get('username') if utente else None
 
-    return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato)
+    return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato, username=username)
 
 
 @app.route('/movie-card/<int:film_id>')
@@ -94,10 +94,13 @@ def movie_card(film_id):
                     stato_utente = film_visto.get('stato')
                     break
 
+    username = utente.get('username') if utente else None
+
     return render_template('movie-card.html', film=film, consigliati=consigliati,
                            utente_loggato=utente_loggato,
                            voto_utente=voto_utente,
-                           stato_utente=stato_utente)
+                           stato_utente=stato_utente,
+                           username=username)
 
 
 @app.route('/logged-home-page')
@@ -130,7 +133,15 @@ def logged_home_page():
     for film in film_visti + ultime_uscite + consigliati:
         film['_id'] = str(film['_id'])
 
-    return render_template('logged-home-page.html', film_visti=film_visti, ultime_uscite=ultime_uscite, consigliati=consigliati)
+    username = utente.get('username') if utente else None
+
+    return render_template('logged-home-page.html', film_visti=film_visti, ultime_uscite=ultime_uscite, consigliati=consigliati, username=username)
+
+
+@app.route('/logout')
+def logout():
+    session.clear()  # Cancella tutta la sessione
+    return redirect(url_for('registrazione.registrazione'))  # O dove vuoi reindirizzare
 
 
 if __name__ == "__main__":

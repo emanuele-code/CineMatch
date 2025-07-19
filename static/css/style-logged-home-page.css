@@ -235,3 +235,32 @@ h1 {
   width: 250px;
   flex-shrink: 0;
 }
+
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  z-index: 1000;
+  min-width: 80px;
+}
+
+.dropdown-menu a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 8px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
