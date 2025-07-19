@@ -30,6 +30,8 @@ app.register_blueprint(stati_bp, url_prefix='')
 
 @app.route('/')
 def home():
+    if 'id_utente' in session:
+        return redirect(url_for('logged_home_page'))
     return render_template('index.html')
 
 
