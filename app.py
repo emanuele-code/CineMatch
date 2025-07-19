@@ -49,8 +49,26 @@ def movie_card(film_id):
         consiglio['_id'] = str(consiglio['_id'])
 
     utente_loggato = 'id_utente' in session
+    voto_utente = None
+    stato_utente = None
 
-    return render_template('movie-card.html', film=film, consigliati=consigliati, utente_loggato = utente_loggato)
+    if utente_loggato:
+        id_utente = session.get('id_utente')
+        utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
+
+        if utente and 'filmVisti' in utente:
+            # Cerca il film nella lista filmVisti dell'utente
+            for film_visto in utente['filmVisti']:
+                # film_id è ObjectId, film['_id'] è stringa -> fai confronto coerente
+                if str(film_visto['film_id']) == film['_id']:
+                    voto_utente = film_visto.get('voto')
+                    stato_utente = film_visto.get('stato')
+                    break
+
+    return render_template('movie-card.html', film=film, consigliati=consigliati,
+                           utente_loggato=utente_loggato,
+                           voto_utente=voto_utente,
+                           stato_utente=stato_utente)
 
 
 @app.route('/logged-home-page')
