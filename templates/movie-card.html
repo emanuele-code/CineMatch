@@ -27,7 +27,17 @@
           <h1>{{ film.titolo }}</h1>
           <div class="rating-status">
 
-            <div class="stars">{{ '★' * film.stelle }}{{ '☆' * (5 - film.stelle) }}</div>
+        <div class="stars">
+          {% if utente_loggato %}
+            <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ film.stelle }}">
+              {% for i in range(1, 6) %}
+                <span class="star{% if i <= film.stelle %} filled{% endif %}" data-value="{{ i }}">★</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ '★' * film.stelle }}{{ '☆' * (5 - film.stelle) }}
+          {% endif %}
+        </div>
             
             <div class="status-wrapper">
               <div class="movie-status {{ film.stato }}" onclick="toggleDropdown('{{film._id}}')">
@@ -73,6 +83,8 @@
 
 
   <script src="{{ url_for('static', filename='javascript/toggle-droplist.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/stelle.js') }}"></script>
+
 
 
 </body>

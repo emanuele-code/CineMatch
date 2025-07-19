@@ -1,13 +1,14 @@
-from flask import Flask, render_template, session, redirect, url_for
+from flask import Flask, render_template, session, redirect, url_for, request, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from src.registrazione import registrazione_bp  # import blueprint
 from src.login import login_bp
+from flask_login import login_required
 
 app = Flask(__name__)
-app.secret_key = 'key' # serve a flask per gestire la seessione ad esempio per usare flash() che richiede una sessione per funzionare
+app.secret_key = 'key'  # serve a flask per gestire la sessione
 
-# Configura la connessione a MongoDB, MongoDB gira su porta logica 27017 
+# Configura la connessione a MongoDB
 app.config["MONGO_URI"] = "mongodb://localhost:27017/cinematch"
 
 # Inizializza Flask-PyMongo
@@ -15,9 +16,9 @@ mongo = PyMongo(app)
 
 # Passo la connessione mongo al blueprint così può usarla
 registrazione_bp.mongo = mongo
-login_bp.mongo         = mongo
+login_bp.mongo = mongo
 
-# Registra il blueprint nella app
+# Registra i blueprint
 app.register_blueprint(registrazione_bp, url_prefix='/registrazione')
 app.register_blueprint(login_bp, url_prefix='/login')
 
@@ -29,7 +30,6 @@ def home():
 
 @app.route('/lista')
 def lista():
-    # mongoDB ritorna documenti con _id in formato ObjectId, converto in stringa per Jinja
     film_list = list(mongo.db.films.find())
     for film in film_list:
         film['_id'] = str(film['_id'])
@@ -48,7 +48,9 @@ def movie_card(film_id):
     for consiglio in consigliati:
         consiglio['_id'] = str(consiglio['_id'])
 
-    return render_template('movie-card.html', film=film, consigliati=consigliati)
+    utente_loggato = 'id_utente' in session
+
+    return render_template('movie-card.html', film=film, consigliati=consigliati, utente_loggato = utente_loggato)
 
 
 @app.route('/logged-home-page')
@@ -60,13 +62,9 @@ def logged_home_page():
     utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
     film_visti_ids = utente.get('filmVisti', [])
 
-    # Recupera i documenti dei film visti
     film_visti = list(mongo.db.films.find({'_id': {'$in': film_visti_ids}}))
-
-    # Estrai i generi preferiti
     generi_preferiti = list({film['genere'] for film in film_visti})
 
-    # Film consigliati per genere, esclusi quelli già visti
     consigliati = list(mongo.db.films.aggregate([
         {
             '$match': {
@@ -74,22 +72,43 @@ def logged_home_page():
                 '_id': {'$nin': film_visti_ids}
             }
         },
-        { '$sample': { 'size': 16 } }
+        {'$sample': {'size': 16}}
     ]))
 
-    # Ultime uscite random dal 2018 in poi
     ultime_uscite = list(mongo.db.films.aggregate([
         {'$match': {'uscita': {'$gte': '2018'}}},
         {'$sample': {'size': 5}}
     ]))
 
-    # Converto _id in stringa per Jinja
     for film in film_visti + ultime_uscite + consigliati:
         film['_id'] = str(film['_id'])
 
     return render_template('logged-home-page.html', film_visti=film_visti, ultime_uscite=ultime_uscite, consigliati=consigliati)
 
 
+
+@app.route('/modifica-stelle/<film_id>', methods=['POST'])
+def modifica_stelle(film_id):
+    if 'id_utente' not in session:
+        return jsonify(success=False, error='Non autorizzato'), 401
+
+    data = request.get_json()
+    nuove_stelle = data.get('stelle')
+
+    if not isinstance(nuove_stelle, int) or not (0 <= nuove_stelle <= 5):
+        return jsonify(success=False, error='Valore stelle non valido'), 400
+
+    try:
+        oid = ObjectId(film_id)
+    except Exception:
+        return jsonify(success=False, error='ID film non valido'), 400
+
+    film = mongo.db.films.find_one({'_id': oid})
+    if not film:
+        return jsonify(success=False, error='Film non trovato'), 404
+
+    mongo.db.films.update_one({'_id': oid}, {'$set': {'stelle': nuove_stelle}})
+    return jsonify(success=True)
 
 
 
