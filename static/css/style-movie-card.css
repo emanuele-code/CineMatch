@@ -54,6 +54,17 @@ header {
   margin: auto;
 }
 
+.star {
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: gold;
+}
+
+
 .film-info {
   display: flex;
   gap: 2rem;

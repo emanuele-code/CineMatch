@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from src.registrazione import registrazione_bp  # import blueprint
 from src.login import login_bp
-from flask_login import login_required
+from src.gestione_voti import voti_bp
 
 app = Flask(__name__)
 app.secret_key = 'key'  # serve a flask per gestire la sessione
@@ -17,10 +17,12 @@ mongo = PyMongo(app)
 # Passo la connessione mongo al blueprint così può usarla
 registrazione_bp.mongo = mongo
 login_bp.mongo = mongo
+voti_bp.mongo  = mongo
 
 # Registra i blueprint
 app.register_blueprint(registrazione_bp, url_prefix='/registrazione')
 app.register_blueprint(login_bp, url_prefix='/login')
+app.register_blueprint(voti_bp, url_prefix='')
 
 
 @app.route('/')
@@ -56,9 +58,6 @@ def lista():
     print(film_list)
 
     return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato)
-
-
-
 
 
 @app.route('/movie-card/<int:film_id>')
