@@ -27,17 +27,17 @@
           <h1>{{ film.titolo }}</h1>
           <div class="rating-status">
 
-        <div class="stars">
-          {% if utente_loggato %}
-            <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ voto_utente or 0 }}">
-              {% for i in range(1, 6) %}
-                <span class="star{% if i <= (voto_utente or 0) %} filled{% endif %}" data-value="{{ i }}">★</span>
-              {% endfor %}
-            </div>
-          {% else %}
-            {{ '★' * (film.stelle or 0) }}{{ '☆' * (5 - (film.stelle or 0)) }}
-          {% endif %}
-        </div>
+          <div class="stars">
+            {% if utente_loggato %}
+              <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ voto_utente or 0 }}">
+                {% for i in range(1, 6) %}
+                  <span class="star{% if i <= (voto_utente or 0) %} filled{% endif %}" data-value="{{ i }}">★</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ '★' * (film.stelle or 0) }}{{ '☆' * (5 - (film.stelle or 0)) }}
+            {% endif %}
+          </div>
 
             
             <div class="status-wrapper">

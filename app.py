@@ -30,10 +30,35 @@ def home():
 
 @app.route('/lista')
 def lista():
-    film_list = list(mongo.db.films.find())
-    for film in film_list:
-        film['_id'] = str(film['_id'])
-    return render_template('lista.html', film_list=film_list)
+    if 'id_utente' not in session:
+        return redirect(url_for('login.login'))
+
+    id_utente = session.get('id_utente')
+    utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
+
+    film_list = []
+    if utente and 'filmVisti' in utente:
+        filmVisti = [f for f in utente['filmVisti'] if f['stato'] in ['visto', 'da vedere']]
+        film_ids = [f['film_id'] for f in filmVisti]
+
+        film_list = list(mongo.db.films.find({'_id': {'$in': film_ids}}))
+
+        # Mappa _id stringa -> voto e stato
+        stato_voto_map = {str(f['film_id']): {'voto': f.get('voto'), 'stato': f.get('stato')} for f in filmVisti}
+
+        for film in film_list:
+            film['_id'] = str(film['_id'])
+            film['voto_utente'] = int(stato_voto_map[film['_id']]['voto']) if stato_voto_map[film['_id']]['voto'] is not None else 0
+            film['stato_utente'] = stato_voto_map[film['_id']]['stato']
+
+    # Passa anche la variabile utente_loggato per template
+    utente_loggato = 'id_utente' in session
+    print(film_list)
+
+    return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato)
+
+
+
 
 
 @app.route('/movie-card/<int:film_id>')
@@ -102,32 +127,6 @@ def logged_home_page():
         film['_id'] = str(film['_id'])
 
     return render_template('logged-home-page.html', film_visti=film_visti, ultime_uscite=ultime_uscite, consigliati=consigliati)
-
-
-
-@app.route('/modifica-stelle/<film_id>', methods=['POST'])
-def modifica_stelle(film_id):
-    if 'id_utente' not in session:
-        return jsonify(success=False, error='Non autorizzato'), 401
-
-    data = request.get_json()
-    nuove_stelle = data.get('stelle')
-
-    if not isinstance(nuove_stelle, int) or not (0 <= nuove_stelle <= 5):
-        return jsonify(success=False, error='Valore stelle non valido'), 400
-
-    try:
-        oid = ObjectId(film_id)
-    except Exception:
-        return jsonify(success=False, error='ID film non valido'), 400
-
-    film = mongo.db.films.find_one({'_id': oid})
-    if not film:
-        return jsonify(success=False, error='Film non trovato'), 404
-
-    mongo.db.films.update_one({'_id': oid}, {'$set': {'stelle': nuove_stelle}})
-    return jsonify(success=True)
-
 
 
 if __name__ == "__main__":

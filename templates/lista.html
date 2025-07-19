@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Mia Lista Film – CineMatch</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header>
@@ -23,19 +23,39 @@
     <div class="movie-grid">
       {% for film in film_list %}
       <div class="movie-card">
+        
         <div class="movie-cover">
           <a href="{{ url_for('movie_card', film_id=film.id) }}">
-            <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
+            <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}" />
           </a>
         </div>
+
         <div class="movie-meta">
           <div class="rating-row">
+
             <div class="stars">
-              {{ '★' * film.stelle }}{{ '☆' * (5 - film.stelle) }}
+              {% if utente_loggato %}
+                <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ film.voto_utente or 0 }}">
+                  {% for i in range(1, 6) %}
+                    <span class="star{% if i <= (film.voto_utente or 0) %} filled{% endif %}" data-value="{{ i }}">★</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ '★' * (film.stelle or 0) }}{{ '☆' * (5 - (film.stelle or 0)) }}
+              {% endif %}
             </div>
-            <div class="movie-status {{ film.stato }}">
-                {% if film.stato == 'visto' %}👁️ Visto{% else %}🎯 Da vedere{% endif %}
+
+
+            <div class="movie-status {{ film.stato_utente }}">
+              {% if film.stato_utente == 'visto' %}
+                👁️ Visto
+              {% elif film.stato_utente == 'da vedere' %}
+                🎯 Da vedere
+              {% else %}
+                <!-- Stato non definito -->
+              {% endif %}
             </div>
+
           </div>
           <p><strong>Titolo:</strong> {{ film.titolo }}</p>
           <p><strong>Regista:</strong> {{ film.regista }}</p>
