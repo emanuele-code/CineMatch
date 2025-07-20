@@ -5,6 +5,7 @@ from src.registrazione import registrazione_bp  # import blueprint
 from src.login import login_bp
 from src.gestione_voti import voti_bp
 from src.gestione_stati import stati_bp
+from src.gestione_logged_home_page import logged_home_page_bp
 
 app = Flask(__name__)
 app.secret_key = 'key'  # serve a flask per gestire la sessione
@@ -16,16 +17,18 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/cinematch"
 mongo = PyMongo(app)
 
 # Passo la connessione mongo al blueprint così può usarla
-registrazione_bp.mongo = mongo
-login_bp.mongo = mongo
-voti_bp.mongo  = mongo
-stati_bp.mongo = mongo
+registrazione_bp.mongo    = mongo
+login_bp.mongo            = mongo
+voti_bp.mongo             = mongo
+stati_bp.mongo            = mongo
+logged_home_page_bp.mongo = mongo
 
 # Registra i blueprint
 app.register_blueprint(registrazione_bp, url_prefix='/registrazione')
 app.register_blueprint(login_bp, url_prefix='/login')
 app.register_blueprint(voti_bp, url_prefix='')
 app.register_blueprint(stati_bp, url_prefix='')
+app.register_blueprint(logged_home_page_bp, url_prefix='')
 
 
 @app.route('/')
@@ -102,40 +105,6 @@ def movie_card(film_id):
                            stato_utente=stato_utente,
                            username=username)
 
-
-@app.route('/logged-home-page')
-def logged_home_page():
-    id_utente = session.get('id_utente')
-    if not id_utente:
-        return redirect(url_for('login.login'))
-
-    utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
-    film_visti_ids = utente.get('filmVisti', [])
-
-    film_visti = list(mongo.db.films.find({'_id': {'$in': film_visti_ids}}))
-    generi_preferiti = list({film['genere'] for film in film_visti})
-
-    consigliati = list(mongo.db.films.aggregate([
-        {
-            '$match': {
-                'genere': {'$in': generi_preferiti},
-                '_id': {'$nin': film_visti_ids}
-            }
-        },
-        {'$sample': {'size': 16}}
-    ]))
-
-    ultime_uscite = list(mongo.db.films.aggregate([
-        {'$match': {'uscita': {'$gte': '2018'}}},
-        {'$sample': {'size': 5}}
-    ]))
-
-    for film in film_visti + ultime_uscite + consigliati:
-        film['_id'] = str(film['_id'])
-
-    username = utente.get('username') if utente else None
-
-    return render_template('logged-home-page.html', film_visti=film_visti, ultime_uscite=ultime_uscite, consigliati=consigliati, username=username)
 
 
 @app.route('/logout')

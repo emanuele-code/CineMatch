@@ -52,7 +52,7 @@
         <section class='container'>
             <h1>Secondo i tuoi gusti</h1>
             <div class="movie-grid">
-            {% for film in consigliati[:16] %}
+            {% for film in lista_gusti[:16] %}
             <div class="movie-card">
                 <div class="movie-cover">
                 <a href="{{ url_for('movie_card', film_id=film.id) }}">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="movie-meta">
                 <div class="rating-row">
-
+                    
                     <div class="stars">
                         {% if utente_loggato %}
                         <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ voto_utente or 0 }}">
@@ -92,7 +92,7 @@
         <h1>Popolari</h1>
         <div class="horizontal-slider-wrapper">
             <div class="horizontal-slider">
-            {% for film in consigliati %}
+            {% for film in film_popolari %}
             <div class="movie-card horizontal-card">
                 <div class="movie-cover">
                 <a href="{{ url_for('movie_card', film_id=film.id) }}">

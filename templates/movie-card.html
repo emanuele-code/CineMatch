@@ -47,7 +47,7 @@
 
             
             <div class="status-wrapper">
-              <div class="movie-status {{ stato_utente or 'nessuno' }}" onclick="toggleDropdown('{{film._id}}')">
+              <div class="movie-status {{ stato_utente.replace(' ', '-') if stato_utente else 'nessuno' }}" onclick="toggleDropdown('{{film._id}}')">
                 {% if stato_utente == 'visto' %}👁️ Visto
                 {% elif stato_utente == 'da vedere' %}🎯 Da vedere
                 {% else %}➕ Imposta stato{% endif %}
