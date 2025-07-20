@@ -33,7 +33,7 @@ def get_film_visti_ids():
     return [
         film['film_id']
         for film in utente.get('filmVisti', [])
-        if (film.get('stato') == 'visto' or film.get('stato') == 'da-vedere') and 'film_id' in film
+        if (film.get('stato') == 'visto' or film.get('stato') == 'da vedere') and 'film_id' in film
     ]
 
 
@@ -57,7 +57,7 @@ def get_ultime_uscite():
 def get_film_popolari():
     popolari_agg = db.utenti.aggregate([
         {"$unwind": "$filmVisti"},
-        {"$match": {"filmVisti.stato": "visto"}},
+        {"$match": {"filmVisti.stato": {"$in": ["visto", "da vedere"]}}},
         {"$group": {
             "_id": "$filmVisti.film_id",
             "count": {"$sum": 1}

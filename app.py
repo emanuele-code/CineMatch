@@ -34,7 +34,7 @@ app.register_blueprint(logged_home_page_bp, url_prefix='')
 @app.route('/')
 def home():
     if 'id_utente' in session:
-        return redirect(url_for('logged_home_page'))
+        return redirect(url_for('logged_home_page.logged_home_page'))
     return render_template('index.html')
 
 

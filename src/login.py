@@ -22,6 +22,6 @@ def login():
             return render_template('registrazione.html', show_login=True)
         else:   
             session['id_utente'] = str(utente_esistente['_id'])
-            return redirect(url_for('logged_home_page'))   
+            return redirect(url_for('logged_home_page.logged_home_page'))   
 
     return render_template('registrazione.html', show_login=True)
