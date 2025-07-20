@@ -63,7 +63,7 @@ def get_film_popolari():
             "count": {"$sum": 1}
         }},
         {"$sort": {"count": -1}},
-        {"$limit": 10}
+        {"$limit": 16}
     ])
 
     film_popolari_ids = [doc["_id"] for doc in popolari_agg]

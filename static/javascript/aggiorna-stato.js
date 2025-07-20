@@ -18,7 +18,7 @@ function updateStatus(film_id, stato) {
         statusDiv.className = 'movie-status visto';
       } else if (stato === 'da vedere') {
         statusDiv.textContent = '🎯 Da vedere';
-        statusDiv.className = 'movie-status da vedere';
+        statusDiv.className = 'movie-status da-vedere';
       } else {
         statusDiv.textContent = '➕ Imposta stato';
         statusDiv.className = 'movie-status nessuno';
