@@ -84,7 +84,7 @@
         <h1>Popolari</h1>
         <div class="horizontal-slider-wrapper">
             <div class="horizontal-slider">
-            {% for film in film_popolari %}
+            {% for film in film_popolari[:8] %}
             <div class="movie-card horizontal-card">
                 <div class="movie-cover">
                 <a href="{{ url_for('movie_card', film_id=film.id) }}">

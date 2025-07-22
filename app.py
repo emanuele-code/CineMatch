@@ -6,6 +6,7 @@ from src.login import login_bp
 from src.gestione_voti import voti_bp
 from src.gestione_stati import stati_bp
 from src.gestione_logged_home_page import logged_home_page_bp
+from src.gestione_recensioni import recensioni_bp
 
 app = Flask(__name__)
 app.secret_key = 'key'  # serve a flask per gestire la sessione
@@ -22,6 +23,7 @@ login_bp.mongo            = mongo
 voti_bp.mongo             = mongo
 stati_bp.mongo            = mongo
 logged_home_page_bp.mongo = mongo
+recensioni_bp.mongo       = mongo
 
 # Registra i blueprint
 app.register_blueprint(registrazione_bp, url_prefix='/registrazione')
@@ -29,6 +31,7 @@ app.register_blueprint(login_bp, url_prefix='/login')
 app.register_blueprint(voti_bp, url_prefix='')
 app.register_blueprint(stati_bp, url_prefix='')
 app.register_blueprint(logged_home_page_bp, url_prefix='')
+app.register_blueprint(recensioni_bp, url_prefix='')
 
 
 @app.route('/')
@@ -70,10 +73,12 @@ def lista():
     return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato, username=username, generi_unici=generi_unici)
 
 
+from flask import Flask, render_template, request, session
+from bson import ObjectId
+
 @app.route('/movie-card/<int:film_id>')
 def movie_card(film_id):
     film = mongo.db.films.find_one({'id': film_id})
-
     if film is None:
         return "Film non trovato", 404
 
@@ -85,27 +90,50 @@ def movie_card(film_id):
     utente_loggato = 'id_utente' in session
     voto_utente = None
     stato_utente = None
+    username = None
+    recensioni = []
 
     if utente_loggato:
         id_utente = session.get('id_utente')
         utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
 
         if utente and 'filmVisti' in utente:
-            # Cerca il film nella lista filmVisti dell'utente
             for film_visto in utente['filmVisti']:
-                # film_id è ObjectId, film['_id'] è stringa -> fai confronto coerente
                 if str(film_visto['film_id']) == film['_id']:
                     voto_utente = film_visto.get('voto')
                     stato_utente = film_visto.get('stato')
                     break
 
-    username = utente.get('username') if utente else None
+        username = utente.get('username') if utente else None
 
-    return render_template('movie-card.html', film=film, consigliati=consigliati,
-                           utente_loggato=utente_loggato,
-                           voto_utente=voto_utente,
-                           stato_utente=stato_utente,
-                           username=username)
+    # 🔽 Recupera recensioni per il film corrente
+    utenti_con_recensioni = mongo.db.utenti.find({
+        "filmVisti": {
+            "$elemMatch": {
+                "film_id": ObjectId(film['_id']),
+                "recensione": {"$ne": ""}  # esclude vuoti
+            }
+        }
+    })
+
+    for utente in utenti_con_recensioni:
+        for f in utente['filmVisti']:
+            if str(f['film_id']) == film['_id'] and f.get('recensione'):
+                recensioni.append({
+                    "nome_utente": utente['username'],
+                    "testo": f['recensione']
+                })
+
+    return render_template('movie-card.html',
+        film=film,
+        consigliati=consigliati,
+        utente_loggato=utente_loggato,
+        voto_utente=voto_utente,
+        stato_utente=stato_utente,
+        username=username,
+        recensioni=recensioni
+    )
+
 
 
 

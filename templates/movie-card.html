@@ -24,6 +24,7 @@
   </header>
 
   <main class="film-detail">
+    
     <div class="film-info">
       <div class="film-cover">
         <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
@@ -67,7 +68,7 @@
         <p><strong>Genere:</strong> {{ film.genere }}</p>
         <p><strong>Uscita:</strong> {{ film.uscita }}</p>
         <p><strong>Regista:</strong> {{ film.regista }}</p>
-        <p class="trama"><strong>Trama:</strong> {{ film.trama }}</p>
+
       </div>
     </div>
 
@@ -85,6 +86,22 @@
       </div>
     </section>
 
+
+    <div class="recensioni">
+      <h2>Recensioni degli utenti</h2>
+      <div class="cards-recensioni">
+        {% for recensione in recensioni[:5] %}
+          <div class="recensione-card">
+            <div class="recensione-header">
+              <strong>{{ recensione.nome_utente }}</strong>
+            </div>
+            <p class="recensione-testo">{{ recensione.testo }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+
   </main>
 
 
@@ -93,6 +110,7 @@
   <script src="{{ url_for('static', filename='javascript/star-animation.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/set-stars.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/toggle-user-menu.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/ruota-recensioni.js') }}"></script>
 
 
 

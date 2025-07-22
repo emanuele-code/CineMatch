@@ -258,3 +258,81 @@ header {
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
 }
+
+
+.recensioni {
+  margin-top: 4rem;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 2rem;
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); /* bagliore giallo soft */
+}
+
+.recensioni h2 {
+  margin-bottom: 1.5rem;
+  color: #ffcc00;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.lista-recensioni {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recensione-item {
+  padding: 1rem;
+  border-bottom: 1px solid #333;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.recensione-item strong {
+  color: #ffcc00;
+  margin-right: 0.5rem;
+}
+
+.recensione-item:last-child {
+  border-bottom: none;
+}
+
+
+.cards-recensioni {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.recensione-card {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  padding: 1.2rem;
+  height: 350px;
+  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recensione-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(255, 204, 0, 0.2);
+}
+
+.recensione-header {
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 0.8rem;
+  font-size: 2rem;
+}
+
+.recensione-testo {
+  color: #e0e0e0;
+  line-height: 1.5;
+  font-size: 1.2rem;
+  white-space: pre-line;
+}
