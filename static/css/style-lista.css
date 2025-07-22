@@ -144,25 +144,6 @@ header {
   color: #fff;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #1f1f1f;
-  color: #ccc;
-  text-align: center;
-  padding: 1rem;
-  z-index: 1000;
-}
-
-
-@media (max-width: 600px) {
-  .movie-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
-}
-
 
 .dropdown {
   position: relative;

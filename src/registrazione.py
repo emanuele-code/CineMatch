@@ -19,14 +19,14 @@ def registrazione():
             return render_template('registrazione.html', show_login=False)
 
         hashed_pw = generate_password_hash(password)
-        registrazione_bp.mongo.db.utenti.insert_one({
+        result = registrazione_bp.mongo.db.utenti.insert_one({
             "username": username,
             "email": email,
             "password": hashed_pw,
             "filmVisti": []
         })
 
-        id_utente['id_utente'] = str(utente_esistente['_id'])
-        return redirect(url_for('logged_home_page'))
-    # Se invece è una richiesta GET
-    return render_template('registrazione.html', show_login = False)
+        session['id_utente'] = str(result.inserted_id)
+        return redirect(url_for('logged_home_page.logged_home_page'))
+
+    return render_template('registrazione.html', show_login=False)
