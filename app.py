@@ -65,7 +65,9 @@ def lista():
     utente_loggato = 'id_utente' in session
     username = utente.get('username') if utente else None
 
-    return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato, username=username)
+    generi_unici = mongo.db.films.distinct("genere")
+
+    return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato, username=username, generi_unici=generi_unici)
 
 
 @app.route('/movie-card/<int:film_id>')

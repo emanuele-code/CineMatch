@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista.css') }}" />
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet" />
 </head>
+
 <body>
+
   <header>
     <nav class="navbar">
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
@@ -26,6 +28,34 @@
 
   <main>
     <h1>La Mia Lista di Film</h1>
+
+
+    <div class="film-filter">
+      <label for="statoFiltro">Stato:</label>
+      <select id="statoFiltro">
+        <option value="tutti">Tutti</option>
+        <option value="visto">Visto</option>
+        <option value="da-vedere">Da vedere</option>
+      </select>
+
+      <label for="stelleFiltro">Stelle:</label>
+      <select id="stelleFiltro">
+        <option value="tutte">Tutte</option>
+        {% for i in range(5, 0, -1) %}
+          <option value="{{ i }}">{{ i }} ★</option>
+        {% endfor %}
+      </select>
+
+      <label for="genereFiltro">Genere:</label>
+      <select id="genereFiltro">
+        <option value="tutti">Tutti</option>
+        {% for genere in generi_unici %}
+          <option value="{{ genere|lower }}">{{ genere }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+
     <div class="movie-grid">
       {% for film in film_list %}
       <div class="movie-card">
@@ -79,6 +109,7 @@
 
 
   <script src="{{ url_for('static', filename='javascript/toggle-user-menu.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/filtro-lista.js') }}"></script>
 
 </body>
 </html>
