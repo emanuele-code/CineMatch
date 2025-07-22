@@ -13,6 +13,7 @@ function updateStatus(film_id, stato) {
     if (data.success) {
       // Aggiorna UI (testuale + classe)
       const statusDiv = document.querySelector(`.movie-status`);
+      console.log(statusDiv)
       if (stato === 'visto') {
         statusDiv.textContent = '👁️ Visto';
         statusDiv.className = 'movie-status visto';
@@ -26,6 +27,8 @@ function updateStatus(film_id, stato) {
 
       // Chiudi dropdown
       document.getElementById(`dropdown-${film_id}`).style.display = 'none';
+      window.location.reload(); // Ricarica la pagina per riflettere le modifiche
+
     } else {
       alert('Errore nell\'aggiornamento dello stato');
     }

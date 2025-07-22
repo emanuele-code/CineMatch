@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const genereVal = genereFiltro.value;
 
     cards.forEach(card => {
-      const statoDiv = card.querySelector('.movie-status');
-      const stelleDiv = card.querySelector('.interactive-stars');
+      const statoDiv   = card.querySelector('.movie-status');
+      const stelleDiv  = card.querySelector('.interactive-stars');
       const genereText = card.querySelector('p:nth-of-type(3)')?.textContent || ''; // "Genere: Azione"
 
-      const statoClass = statoDiv?.className.split(' ').pop(); // es: "visto"
+      const statoClass   = statoDiv?.className.split(' ').pop(); // es: "visto"
       const currentStars = parseInt(stelleDiv?.dataset.currentStars || 0);
-      const genere = genereText.toLowerCase().split(':')[1]?.trim() || '';
+      const genere       = genereText.toLowerCase().split(':')[1]?.trim() || '';
 
-      const matchStato = statoVal === 'tutti' || statoClass === statoVal;
+      const matchStato  = statoVal === 'tutti' || statoClass === statoVal;
       const matchStelle = stelleVal === 'tutte' || currentStars === parseInt(stelleVal);
       const matchGenere = genereVal === 'tutti' || genere === genereVal;
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  statoFiltro.addEventListener('change', filtra);
+  statoFiltro.addEventListener('change',  filtra);
   stelleFiltro.addEventListener('change', filtra);
   genereFiltro.addEventListener('change', filtra);
 });
