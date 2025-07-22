@@ -1,31 +1,39 @@
-document.querySelectorAll('.interactive-stars').forEach(container => {
-  container.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('click', () => {
-      const voto = parseInt(star.dataset.value);
-      const film_id = container.dataset.filmId;
+document.addEventListener('DOMContentLoaded', () => {
+  function aggiornaStelle(container, voto) {
+    container.querySelectorAll('.star').forEach(star => {
+      const val = parseInt(star.dataset.value);
+      star.classList.remove('filled');
+      if (val <= voto) {
+        star.classList.add('filled');
+      }
+    });
+    container.dataset.currentStars = voto;
+  }
 
-      container.querySelectorAll('.star').forEach(s => {
-        const val = parseInt(s.dataset.value);
-        s.classList.toggle('filled', val <= voto);
-      });
+  document.querySelectorAll('.interactive-stars').forEach(container => {
+    const filmId = container.dataset.filmId;
 
-      // Rimanda il fetch per dare tempo al browser di aggiornare la UI
-      setTimeout(() => {
+    // Invia il voto via POST e aggiorna direttamente le stelle
+    container.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('click', () => {
+        const voto = parseInt(star.dataset.value);
+
         fetch('/aggiorna_voto', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           credentials: 'include',
-          body: JSON.stringify({ film_id, voto })
+          body: JSON.stringify({ film_id: filmId, voto })
         })
-        .then(response => response.json())
-        .then(data => {
-          if (!data.success) {
-            alert('Errore nel salvataggio del voto.');
+        .then(response => {
+          if (response.ok) {
+            window.location.reload(); // Ricarica la pagina per riflettere le modifiche
+          } else {
+            alert("Errore durante l'aggiornamento dello stato");
           }
         });
-      }, 0);
+      });
     });
   });
 });

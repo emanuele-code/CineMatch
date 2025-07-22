@@ -33,3 +33,22 @@ def aggiorna_voto():
     )
 
     return jsonify({'success': True, 'voto': voto})
+
+
+
+@voti_bp.route('/get_voto/<film_id>', methods=['GET'])
+def get_voto(film_id):
+    if 'id_utente' not in session:
+        return jsonify({'error': 'Non autenticato'}), 401
+
+    user_id = session['id_utente']
+    utente = utenti.find_one(
+        {'_id': ObjectId(user_id), 'filmVisti.film_id': ObjectId(film_id)},
+        {'filmVisti.$': 1}
+    )
+
+    if not utente or 'filmVisti' not in utente:
+        return jsonify({'voto': 0})  # Nessun voto registrato
+
+    voto = utente['filmVisti'][0].get('voto', 0)
+    return jsonify({'voto': voto})
