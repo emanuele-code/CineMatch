@@ -31,29 +31,36 @@
 
 
     <div class="film-filter">
-      <label for="statoFiltro">Stato:</label>
-      <select id="statoFiltro">
-        <option value="tutti">Tutti</option>
-        <option value="visto">Visto</option>
-        <option value="da-vedere">Da vedere</option>
-      </select>
+      <div class="filter-group">
+        <label for="statoFiltro">Stato:</label>
+        <select id="statoFiltro">
+          <option value="tutti">Tutti</option>
+          <option value="visto">Visto</option>
+          <option value="da-vedere">Da vedere</option>
+        </select>
+      </div>
 
-      <label for="stelleFiltro">Stelle:</label>
-      <select id="stelleFiltro">
-        <option value="tutte">Tutte</option>
-        {% for i in range(5, 0, -1) %}
-          <option value="{{ i }}">{{ i }} ★</option>
-        {% endfor %}
-      </select>
+      <div class="filter-group">
+        <label for="stelleFiltro">Stelle:</label>
+        <select id="stelleFiltro">
+          <option value="tutte">Tutte</option>
+          {% for i in range(5, 0, -1) %}
+            <option value="{{ i }}">{{ i }} ★</option>
+          {% endfor %}
+        </select>
+      </div>
 
-      <label for="genereFiltro">Genere:</label>
-      <select id="genereFiltro">
-        <option value="tutti">Tutti</option>
-        {% for genere in generi_unici %}
-          <option value="{{ genere|lower }}">{{ genere }}</option>
-        {% endfor %}
-      </select>
+      <div class="filter-group">
+        <label for="genereFiltro">Genere:</label>
+        <select id="genereFiltro">
+          <option value="tutti">Tutti</option>
+          {% for genere in generi_unici %}
+            <option value="{{ genere|lower }}">{{ genere }}</option>
+          {% endfor %}
+        </select>
+      </div>
     </div>
+
 
 
     <div class="movie-grid">

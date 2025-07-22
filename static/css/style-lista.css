@@ -192,40 +192,38 @@ footer {
   background-color: #f0f0f0;
 }
 
+
 .film-filter {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 2rem; /* distanza uniforme tra i filtri */
+  margin: 2rem auto;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin: 1.5rem auto 2rem auto;
-  padding: 1rem 1.5rem;
-  background-color: #1e1e1e;
+  background-color: #1c1c1c;
+  padding: 1rem 2rem;
   border-radius: 10px;
-  max-width: 1150px;
-  font-size: 0.95rem;
-  
+  max-width: 800px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   color: #f0f0f0;
+  gap: 8px;
 }
 
-.film-filter label {
-  font-weight: 600;
+.filter-group label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
-.film-filter select {
-  background-color: #2a2a2a;
-  color: #fff;
-  border: 1px solid #444;
-  padding: 0.4rem 0.6rem;
+.filter-group select {
+  padding: 0.4rem 1rem;
   border-radius: 6px;
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.95rem;
-}
-
-.film-filter > * {
-  margin-right: 5rem;
-}
-
-.film-filter label {
-  margin-right: 0.5rem;
+  border: none;
+  background-color: #f0d86d;
+  color: #2a2a2a;
+  font-weight: 500;
+  cursor: pointer;
 }
