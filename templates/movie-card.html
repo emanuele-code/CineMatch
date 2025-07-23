@@ -69,6 +69,24 @@
         <p><strong>Uscita:</strong> {{ film.uscita }}</p>
         <p><strong>Regista:</strong> {{ film.regista }}</p>
 
+
+        <div class="recensione-personale-wrapper" data-film-id="{{ film._id }}">
+          <h3>La tua recensione</h3>
+          <div id="recensione-view">
+            <p id="recensione-testo-statico">{{ recensione_utente or 'Nessuna recensione inserita.' }}</p>
+            <button onclick="toggleEditor()">✏️ Modifica</button>
+          </div>
+
+          <form id="recensione-form" style="display: none;" onsubmit="salvaRecensione(event)">
+            <textarea id="textarea-recensione" name="recensione" placeholder="Scrivi la tua recensione qui...">{{ recensione_utente or '' }}</textarea>
+            <div class="recensione-buttons">
+              <button type="submit">💾 Salva</button>
+              <button type="button" onclick="toggleEditor()">❌ Annulla</button>
+            </div>
+          </form>
+        </div>
+
+
       </div>
     </div>
 
@@ -77,7 +95,7 @@
       <div class="carousel">
         {% for suggerito in consigliati %}
         <div class="carousel-item">
-          <a href="{{ url_for('movie_card', film_id=suggerito.id) }}">
+          <a href="{{ url_for('movie_card.movie_card', film_id=suggerito.id) }}">
             <img src="{{ url_for('static', filename=suggerito.immagine) }}" alt="{{ suggerito.titolo }}">
           </a>
           <p>{{ suggerito.titolo }}</p>
@@ -111,6 +129,7 @@
   <script src="{{ url_for('static', filename='javascript/set-stars.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/toggle-user-menu.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/ruota-recensioni.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/toggle-review-textarea.js') }}"></script>
 
 
 

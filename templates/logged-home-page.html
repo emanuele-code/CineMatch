@@ -32,7 +32,7 @@
             <div class="slider-wrapper">
             <div class="slider">
                 {% for film in ultime_uscite %}
-                <a href="{{ url_for('movie_card', film_id=film.id) }}">
+                <a href="{{ url_for('movie_card.movie_card', film_id=film.id) }}">
                     <img id="slide-{{ film.id }}" src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}" />
                 </a>
                 {% endfor %}
@@ -55,7 +55,7 @@
             {% for film in lista_gusti[:16] %}
             <div class="movie-card">
                 <div class="movie-cover">
-                <a href="{{ url_for('movie_card', film_id=film.id) }}">
+                <a href="{{ url_for('movie_card.movie_card', film_id=film.id) }}">
                     <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
                 </a>
                 </div>
@@ -87,7 +87,7 @@
             {% for film in film_popolari[:8] %}
             <div class="movie-card horizontal-card">
                 <div class="movie-cover">
-                <a href="{{ url_for('movie_card', film_id=film.id) }}">
+                <a href="{{ url_for('movie_card.movie_card', film_id=film.id) }}">
                     <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
                 </a>
                 </div>

@@ -68,7 +68,7 @@
       <div class="movie-card">
         
         <div class="movie-cover">
-          <a href="{{ url_for('movie_card', film_id=film.id) }}">
+          <a href="{{ url_for('movie_card.movie_card', film_id=film.id) }}">
             <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}" />
           </a>
         </div>

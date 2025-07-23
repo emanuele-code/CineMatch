@@ -336,3 +336,59 @@ header {
   font-size: 1.2rem;
   white-space: pre-line;
 }
+
+
+.recensione-personale-wrapper {
+  margin-top: 2rem;
+  background-color: #1c1c1c;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+.recensione-personale-wrapper h3 {
+  color: #ffcc00;
+  margin-bottom: 0.8rem;
+}
+
+#recensione-testo-statico {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+  white-space: pre-line;
+}
+
+#textarea-recensione {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  resize: vertical;
+  font-size: 1rem;
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+  box-shadow: inset 0 0 5px rgba(255, 204, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.recensione-buttons {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.recensione-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #ecd050;
+  color: #2a2a2a;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.recensione-buttons button:hover {
+  background-color: #e6c85f;
+}
