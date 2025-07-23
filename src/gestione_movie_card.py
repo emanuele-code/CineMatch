@@ -100,8 +100,6 @@ def salva_recensione(film_id):
         return jsonify({"error": "Utente non loggato"}), 401
 
     nuovo_testo = request.form.get('recensione', '').strip()
-    if not nuovo_testo:
-        return jsonify({"error": "La recensione è vuota"}), 400
 
     id_utente = session['id_utente']
     utente = utenti.find_one({"_id": ObjectId(id_utente)})
