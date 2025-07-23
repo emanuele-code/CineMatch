@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <title>{{ film.titolo }} – CineMatch</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-movie-card.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
   <header>
     <nav class="navbar">
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
       <ul class="nav-links">
         <li><a href="{{ url_for('lista') }}">Lista</a></li>
-
         <li class="dropdown">
           <a href="#" id="userDropdown">{{ username }}</a>
           <div class="dropdown-menu" id="dropdownMenu">
@@ -26,28 +28,31 @@
   <main class="film-detail">
     
     <div class="film-info">
+
       <div class="film-cover">
         <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
       </div>
+
       <div class="film-text">
         <div class="titolo-rating">
           <h1>{{ film.titolo }}</h1>
           <div class="rating-status">
 
-          <div class="stars">
-            {% if utente_loggato %}
-              <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ voto_utente or 0 }}">
-                {% for i in range(1, 6) %}
-                  <span class="star{% if i <= (voto_utente or 0) %} filled{% endif %}" data-value="{{ i }}">★</span>
-                {% endfor %}
-              </div>
-            {% else %}
-              {{ '★' * (film.stelle or 0) }}{{ '☆' * (5 - (film.stelle or 0)) }}
-            {% endif %}
-          </div>
+            <div class="stars">
+              {% if utente_loggato %}
+                <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ voto_utente or 0 }}">
+                  {% for i in range(1, 6) %}
+                    <span class="star{% if i <= (voto_utente or 0) %} filled{% endif %}" data-value="{{ i }}">★</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ '★' * (film.stelle or 0) }}{{ '☆' * (5 - (film.stelle or 0)) }}
+              {% endif %}
+            </div>
 
             
             <div class="status-wrapper">
+
               <div class="movie-status {{ stato_utente.replace(' ', '-') if stato_utente else 'nessuno' }}" onclick="toggleDropdown('{{film._id}}')">
                 {% if stato_utente == 'visto' %}👁️ Visto
                 {% elif stato_utente == 'da vedere' %}🎯 Da vedere
@@ -74,7 +79,7 @@
           <h3>La tua recensione</h3>
           <div id="recensione-view">
             <p id="recensione-testo-statico">{{ recensione_utente or 'Nessuna recensione inserita.' }}</p>
-            <button onclick="toggleEditor()">✏️ Modifica</button>
+            <button class="btn-recensione" onclick="toggleEditor()">✏️ Modifica</button>
           </div>
 
           <form id="recensione-form" style="display: none;" onsubmit="salvaRecensione(event)">
