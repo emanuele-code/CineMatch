@@ -34,7 +34,7 @@
                 {% endif %}
             {% endwith %}
 
-            <form action="{{ url_for('registrazione.registrazione') }}" method="POST">
+            <form action="{{ url_for('registrazione_bp.registrazione') }}" method="POST">
                 <label for="reg-username">Username:</label>
                 <input type="text" id="reg-username" name="username" required>
 
@@ -62,7 +62,7 @@
                 {% endif %}
             {% endwith %}
 
-            <form action="{{ url_for('login.login') }}" method="POST">
+            <form action="{{ url_for('login_bp.login') }}" method="POST">
                 <label for="login-username">Username o Email:</label>
                 <input type="text" id="login-username" name="username" required>
 
