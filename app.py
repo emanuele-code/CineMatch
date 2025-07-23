@@ -9,19 +9,20 @@ from src.gestione_logged_home_page import logged_home_page_bp
 from src.gestione_movie_card       import movie_card_bp
 from src.gestione_lista            import lista_bp
 
-# Flask() crea l´applicazione mentre __name__ recupera a recuperare il percorso relativo al file principale
+
+# Flask() creates the application, while __name__ is used to retrieve the relative path of the main file
 app = Flask(__name__)
 
-# serve a flask per gestire la sessione
+# is used by flask to handle the session
 app.secret_key = 'key'  
 
-# Configura la connessione a MongoDB
+# Configure connection to MongoDB
 app.config["MONGO_URI"] = "mongodb://localhost:27017/cinematch"
 
-# Inizializza Flask-PyMongo
+# init Flask-PyMongo
 mongo = PyMongo(app)
 
-# Passo la connessione mongo al blueprint così può usarla
+# pass the mongo connection to the blueprint
 registrazione_bp.mongo    = mongo
 login_bp.mongo            = mongo
 voti_bp.mongo             = mongo
@@ -30,9 +31,10 @@ logged_home_page_bp.mongo = mongo
 movie_card_bp.mongo       = mongo
 lista_bp.mongo            = mongo
 
-# il primo argomento è l'istanza di Bp creata nel modulo corrispondente, il secondo è il prefisso
-# secondo il quale qualsiasi URL in suddetto modulo deve iniziare 
-# ad esempio invia_registrazione 
+
+# The first argument is the instance of the Blueprint created in the corresponding module,
+# the second is the prefix that every URL in that module must start with.
+# For example, invia_registrazione
 app.register_blueprint(registrazione_bp,    url_prefix='/registrazione')
 app.register_blueprint(login_bp,            url_prefix='/login')
 app.register_blueprint(lista_bp,            url_prefix='/lista')
@@ -52,9 +54,10 @@ def home():
 
 @app.route('/logout')
 def logout():
-    session.clear()  # Cancella tutta la sessione
+    session.clear()  # delete the whole session
     return redirect(url_for('registrazione_bp.registrazione'))  
 
 
+# notify that this is the main entry point of the logic in the code
 if __name__ == "__main__":
     app.run(debug=True)
