@@ -304,19 +304,40 @@ header {
 
 
 .cards-recensioni {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
+
 
 .recensione-card {
   background-color: #2a2a2a;
   border-radius: 10px;
-  padding: 1.2rem;
-  height: 350px;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem; /* padding standard */  
+  height: 100px;         /* altezza fissa */
   box-shadow: 0 4px 12px rgba(255, 204, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  overflow-y: auto;      /* abilita scroll verticale */
+  scrollbar-width: thin; /* (per Firefox) scrollbar sottile */
+  scrollbar-color: gold #444; /* colori scrollbar (Firefox) */
 }
+
+/* Scrollbar per Chrome, Edge e Safari */
+.recensione-card::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recensione-card::-webkit-scrollbar-track {
+  background: #444;
+  border-radius: 10px;
+}
+
+.recensione-card::-webkit-scrollbar-thumb {
+  background-color: gold;
+  border-radius: 10px;
+  border: 2px solid #444;
+}
+
 
 .recensione-card:hover {
   transform: translateY(-5px);
@@ -327,13 +348,13 @@ header {
   font-weight: bold;
   color: #ffcc00;
   margin-bottom: 0.8rem;
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 .recensione-testo {
   color: #e0e0e0;
   line-height: 1.5;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   white-space: pre-line;
 }
 
