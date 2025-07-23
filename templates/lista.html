@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>La Mia Lista Film – CineMatch</title>
+  <title>La Mia lista Film – CineMatch</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-lista.css') }}" />
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet" />
 </head>
@@ -14,7 +14,7 @@
     <nav class="navbar">
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
       <ul class="nav-links">
-        <li><a href="{{ url_for('lista') }}">Lista</a></li>
+        <li><a href="{{ url_for('lista.lista') }}">lista</a></li>
 
         <li class="dropdown">
           <a href="#" id="userDropdown">{{ username }}</a>
@@ -27,7 +27,7 @@
   </header>
 
   <main>
-    <h1>La Mia Lista di Film</h1>
+    <h1>La Mia lista di Film</h1>
 
 
     <div class="film-filter">

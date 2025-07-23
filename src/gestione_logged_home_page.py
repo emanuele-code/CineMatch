@@ -90,6 +90,8 @@ def get_lista_gusti(film_visti, film_visti_ids):
 
 
 
+
+
 @logged_home_page_bp.route('/logged-home-page', methods=['GET'])
 def logged_home_page():
     username = get_username()
@@ -109,4 +111,5 @@ def logged_home_page():
         ultime_uscite=ultime_uscite,
         username=username
     )
+
 

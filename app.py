@@ -7,6 +7,7 @@ from src.gestione_voti import voti_bp
 from src.gestione_stati import stati_bp
 from src.gestione_logged_home_page import logged_home_page_bp
 from src.gestione_movie_card import movie_card_bp
+from src.gestione_lista import lista_bp
 
 app = Flask(__name__)
 app.secret_key = 'key'  # serve a flask per gestire la sessione
@@ -24,6 +25,7 @@ voti_bp.mongo             = mongo
 stati_bp.mongo            = mongo
 logged_home_page_bp.mongo = mongo
 movie_card_bp.mongo       = mongo
+lista_bp.mongo            = mongo
 
 # Registra i blueprint
 app.register_blueprint(registrazione_bp, url_prefix='/registrazione')
@@ -32,6 +34,7 @@ app.register_blueprint(voti_bp, url_prefix='')
 app.register_blueprint(stati_bp, url_prefix='')
 app.register_blueprint(logged_home_page_bp, url_prefix='')
 app.register_blueprint(movie_card_bp, url_prefix='')
+app.register_blueprint(lista_bp, url_prefix='/lista')
 
 
 @app.route('/')
@@ -39,38 +42,6 @@ def home():
     if 'id_utente' in session:
         return redirect(url_for('logged_home_page.logged_home_page'))
     return render_template('index.html')
-
-
-@app.route('/lista')
-def lista():
-    if 'id_utente' not in session:
-        return redirect(url_for('login.login'))
-
-    id_utente = session.get('id_utente')
-    utente = mongo.db.utenti.find_one({"_id": ObjectId(id_utente)})
-
-    film_list = []
-    if utente and 'filmVisti' in utente:
-        filmVisti = [f for f in utente['filmVisti'] if f['stato'] in ['visto', 'da vedere']]
-        film_ids = [f['film_id'] for f in filmVisti]
-
-        film_list = list(mongo.db.films.find({'_id': {'$in': film_ids}}))
-
-        # Mappa _id stringa -> voto e stato
-        stato_voto_map = {str(f['film_id']): {'voto': f.get('voto'), 'stato': f.get('stato')} for f in filmVisti}
-
-        for film in film_list:
-            film['_id'] = str(film['_id'])
-            film['voto_utente'] = int(stato_voto_map[film['_id']]['voto']) if stato_voto_map[film['_id']]['voto'] is not None else 0
-            film['stato_utente'] = stato_voto_map[film['_id']]['stato']
-
-    # Passa anche la variabile utente_loggato per template
-    utente_loggato = 'id_utente' in session
-    username = utente.get('username') if utente else None
-
-    generi_unici = mongo.db.films.distinct("genere")
-
-    return render_template('lista.html', film_list=film_list, utente_loggato=utente_loggato, username=username, generi_unici=generi_unici)
 
 
 
