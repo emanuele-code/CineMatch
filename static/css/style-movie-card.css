@@ -1,93 +1,98 @@
+/* Corpo pagina: margini a zero, font e colori */
 body {
   margin: 0;
   font-family: 'Raleway', sans-serif;
-  background-color: #121212;
-  color: #f0f0f0;
+  background-color: #121212; /* sfondo scuro */
+  color: #f0f0f0; /* testo chiaro */
 }
 
-
+/* Header: barra in cima, sticky */
 header {
   background-color: #1c1c1c;
   padding: 0.6rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1000; /* sempre sopra altri elementi */
 }
 
+/* Navbar: allineamento logo e link */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* Logo sito */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
   color: #fff;
   text-decoration: none;
 }
-
 .logo:hover {
-  color: #ffcc00;
+  color: #ffcc00; /* cambio colore al passaggio */
 }
 
+/* Lista dei link di navigazione */
 .nav-links {
-    list-style: none;
+    list-style: none; /* rimuove pallini */
     display: flex;
-    gap: 1.5rem;
+    gap: 1.5rem; /* distanza tra i link */
 }
-
 .nav-links a {
-    text-decoration: none;
+    text-decoration: none; /* rimuove sottolineatura */
     color: #f5f5f5;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease; /* animazione hover */
 }
-
 .nav-links a:hover {
-    color: #ff4c4c;
+    color: #ff4c4c; /* colore al passaggio */
 }
 
-
+/* Contenitore principale dei dettagli film */
 .film-detail {
   padding: 2rem;
   max-width: 1200px;
-  margin: auto;
+  margin: auto; /* centra */
 }
 
+/* Stelle per valutazione */
 .star {
-  color: #ccc;
-  cursor: pointer;
+  color: #ccc; /* stelle non selezionate */
+  cursor: pointer; /* puntatore mano */
   transition: color 0.2s;
 }
-
 .star.filled {
-  color: gold;
+  color: gold; /* stelle selezionate */
 }
 
-
+/* Film info: immagine + testo */
 .film-info {
   display: flex;
-  gap: 2rem;
+  gap: 2rem; /* spazio tra immagine e testo */
   align-items: flex-start;
   margin-bottom: 3rem;
 }
 
+/* Copertina film */
 .film-cover img {
   width: 250px;
   height: 375px;
-  object-fit: cover;
-  border-radius: 8px;
+  object-fit: cover; /* ritaglia proporzioni */
+  border-radius: 8px; /* angoli arrotondati */
 }
 
+/* Contenitore testo film */
 .film-text {
-  flex: 1;
+  flex: 1; /* prende spazio rimanente */
 }
 
+/* Trama o descrizione film */
 .trama {
   margin: 1rem 0;
-  line-height: 1.6;
+  line-height: 1.6; /* interlinea leggibile */
 }
 
+/* Righe rating + stato */
 .rating-status {
   display: flex;
   align-items: center;
@@ -95,107 +100,100 @@ header {
   margin-top: 1rem;
 }
 
+/* Stelle colore oro */
 .stars {
   color: gold;
   font-size: 1.2rem;
 }
 
+/* Stelle interattive */
 .interactive-stars .star {
   cursor: pointer;
   font-size: 1.5rem;
-  color: #ccc;
+  color: #ccc; /* default grigio */
   transition: color 0.2s;
 }
-
 .interactive-stars .star.filled {
   color: gold;
 }
-
 .interactive-stars .star:hover {
-  color: inherit; /* mantiene il colore senza cambiare al passaggio */
+  color: inherit; /* non cambia colore al passaggio */
 }
 
-
-
+/* Stato film (visto / da vedere / nessuno) */
 .movie-status {
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 8px;
   background-color: #ecd050;  /* giallo soft */
-  color: #2a2a2a;             /* testo scuro per contrasto */
+  color: #2a2a2a;             /* testo scuro */
   display: inline-block;
   margin-top: 10px;
   font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s; /* animazioni hover */
 }
-
 .movie-status:hover {
-  background-color: #e6c85f; /* un giallo leggermente più scuro al passaggio */
+  background-color: #e6c85f; /* più scuro al passaggio */
   color: #1a1a1a;
 }
 
+/* Dropdown stato film */
+.status-wrapper {
+  position: relative; /* per posizionare dropdown */
+  display: inline-block;
+}
 .status-dropdown {
   position: absolute;
-  background-color: #f0d86d;  /* stesso giallo soft */
-  border: 1px solid #ccc;     /* bordo più morbido */
+  background-color: #f0d86d;  /* giallo soft */
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px 0;
   margin-top: 5px;
   z-index: 100;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   width: 160px;
-  color: #2a2a2a;             /* testo scuro */
+  color: #2a2a2a;
 }
-
 .status-dropdown div {
   padding: 5px 10px;
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.2s;
 }
-
 .status-dropdown div:hover {
   background-color: #f0f0f0;
 }
 
-.status-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-
+/* Colori specifici per stato */
 .visto {
   background-color: #2e8b57;
   color: #fff;
 }
-
 .da-vedere {
   background-color: #1e90ff;
   color: #fff;
 }
 
+/* Sezione film simili / consigliati */
 .simili {
-  margin-top: 8rem; /* Puoi aumentare o diminuire a piacere */
+  margin-top: 8rem;
 }
-
-
 .simili h2 {
   margin-bottom: 1rem;
 }
 
+/* Carosello */
 .carousel {
   display: flex;
-  overflow-x: auto;
+  overflow-x: auto; /* scorrimento orizzontale */
   gap: 1rem;
   padding-bottom: 1rem;
 }
-
 .carousel-item {
-  flex: 0 0 auto;
+  flex: 0 0 auto; /* non si restringe */
   width: 250px;
   text-align: center;
 }
-
 .carousel-item img {
   width: 100%;
   height: 350px;
@@ -203,11 +201,11 @@ header {
   border-radius: 6px;
   transition: transform 0.3s ease;
 }
-
 .carousel-item img:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* ingrandisce leggermente */
 }
 
+/* Titolo + rating */
 .titolo-rating {
   display: flex;
   justify-content: space-between;
@@ -215,26 +213,24 @@ header {
   flex-wrap: wrap;
   gap: 1rem;
 }
-
 .titolo-rating h1 {
   margin: 0;
   font-size: 2rem;
-  flex: 1;
+  flex: 1; /* prende spazio disponibile */
 }
 
-
+/* Linea di separazione nei dropdown */
 .status-dropdown hr {
   width: 90%;
   border: none;
-  border-top: 1px solid rgba(42, 42, 42, 0.2); /* linea sottile e discreta */
+  border-top: 1px solid rgba(42, 42, 42, 0.2);
   margin: 5px auto;
 }
 
-
+/* Dropdown menu utente */
 .dropdown {
   position: relative;
 }
-
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -247,19 +243,17 @@ header {
   z-index: 1000;
   min-width: 80px;
 }
-
 .dropdown-menu a {
   display: block;
   color: #333;
   text-decoration: none;
   padding: 8px;
 }
-
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
 }
 
-
+/* Sezione recensioni utenti */
 .recensioni {
   margin-top: 4rem;
   max-width: 1300px;
@@ -270,7 +264,6 @@ header {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); /* bagliore giallo soft */
 }
-
 .recensioni h2 {
   margin-bottom: 1.5rem;
   color: #ffcc00;
@@ -279,86 +272,39 @@ header {
   text-align: center;
 }
 
-.lista-recensioni {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.recensione-item {
-  padding: 1rem;
-  border-bottom: 1px solid #333;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #ddd;
-}
-
-.recensione-item strong {
-  color: #ffcc00;
-  margin-right: 0.5rem;
-}
-
-.recensione-item:last-child {
-  border-bottom: none;
-}
-
-
+/* Card singola recensione */
 .cards-recensioni {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
-
-
 .recensione-card {
   background-color: #2a2a2a;
   border-radius: 10px;
-  padding: 1.2rem 1.2rem 1.2rem 1.2rem; /* padding standard */  
-  height: 100px;         /* altezza fissa */
+  padding: 1.2rem;
+  height: 100px;
   box-shadow: 0 4px 12px rgba(255, 204, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
-  overflow-y: auto;      /* abilita scroll verticale */
-  scrollbar-width: thin; /* (per Firefox) scrollbar sottile */
-  scrollbar-color: gold #444; /* colori scrollbar (Firefox) */
+  overflow-y: auto;      /* scroll verticale */
+  scrollbar-width: thin;
+  scrollbar-color: gold #444;
 }
 
-/* Scrollbar per Chrome, Edge e Safari */
-.recensione-card::-webkit-scrollbar {
-  width: 8px;
+.recensione-header { 
+  font-weight: bold; 
+  color: #ffcc00; 
+  margin-bottom: 0.8rem; 
+  font-size: 1.4rem; 
 }
 
-.recensione-card::-webkit-scrollbar-track {
-  background: #444;
-  border-radius: 10px;
+.recensione-testo { 
+  color: #e0e0e0; 
+  line-height: 1.5; 
+  font-size: 1.1rem; 
+  white-space: pre-line; 
 }
 
-.recensione-card::-webkit-scrollbar-thumb {
-  background-color: gold;
-  border-radius: 10px;
-  border: 2px solid #444;
-}
-
-
-.recensione-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(255, 204, 0, 0.2);
-}
-
-.recensione-header {
-  font-weight: bold;
-  color: #ffcc00;
-  margin-bottom: 0.8rem;
-  font-size: 1.4rem;
-}
-
-.recensione-testo {
-  color: #e0e0e0;
-  line-height: 1.5;
-  font-size: 1.1rem;
-  white-space: pre-line;
-}
-
-
+/* Recensione personale */
 .recensione-personale-wrapper {
   margin-top: 2rem;
   background-color: #1c1c1c;
@@ -367,34 +313,33 @@ header {
   box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
 }
 
-.recensione-personale-wrapper h3 {
+.recensione-personale-wrapper h3 { 
   color: #ffcc00;
   margin-bottom: 0.8rem;
 }
 
-#recensione-testo-statico {
-  font-size: 1.1rem;
-  color: #e0e0e0;
-  margin-bottom: 0.5rem;
-  white-space: pre-line;
+#recensione-testo-statico { 
+  font-size: 1.1rem; 
+  color: #e0e0e0; 
+  margin-bottom: 0.5rem; 
+  white-space: pre-line; 
+}
+#textarea-recensione { 
+  width: 100%; 
+  height: 150px; 
+  padding: 10px; 
+  border-radius: 8px; 
+  border: none; 
+  resize: vertical; 
+  font-size: 1rem; 
+  background-color: #2a2a2a; 
+  color: #f0f0f0; 
+  box-shadow: inset 0 0 5px rgba(255, 204, 0, 0.2); 
+  box-sizing: border-box; 
 }
 
-#textarea-recensione {
-  width: 100%;
-  height: 150px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  resize: vertical;
-  font-size: 1rem;
-  background-color: #2a2a2a;
-  color: #f0f0f0;
-  box-shadow: inset 0 0 5px rgba(255, 204, 0, 0.2);
-  box-sizing: border-box;
-}
-
-
-.btn-recensione {
+/* Pulsanti recensione */
+.btn-recensione, .recensione-buttons button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
@@ -404,29 +349,10 @@ header {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
-.btn-recensione:hover {
-  background-color: #e6c85f;
-}
-
+.btn-recensione:hover, .recensione-buttons button:hover { background-color: #e6c85f; }
 
 .recensione-buttons {
   margin-top: 0.5rem;
   display: flex;
   gap: 1rem;
-}
-
-.recensione-buttons button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #ecd050;
-  color: #2a2a2a;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.recensione-buttons button:hover {
-  background-color: #e6c85f;
 }

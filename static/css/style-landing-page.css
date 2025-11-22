@@ -1,30 +1,35 @@
+/* Resetta margini e padding di tutti gli elementi e usa il box-sizing border-box */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
- 
+
+/* Stile base del body */
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif; /* font principale */
   line-height: 1.6;
-  color: #fff;
-  background-color: #121212;
+  color: #fff; /* colore testo bianco */
+  background-color: #121212; /* sfondo scuro */
 }
- 
+
+/* Header e barra di navigazione */
 header {
-  background-color: #1c1c1c;
+  background-color: #1c1c1c; /* sfondo header */
   padding: 1rem 2rem;
-  position: sticky;
+  position: sticky; /* rimane in alto quando scrolli */
   top: 0;
-  z-index: 1000;
+  z-index: 1000; /* sopra altri elementi */
 }
- 
+
+/* Navbar flex per distribuire logo e link */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
- 
+
+/* Logo */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -33,25 +38,27 @@ header {
 }
 
 .logo:hover {
-  color: #ffcc00;
+  color: #ffcc00; /* colore al passaggio del mouse */
 }
- 
+
+/* Lista link */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
+  gap: 1.5rem; /* spazio tra link */
 }
- 
+
 .nav-links a {
   text-decoration: none;
   color: #f5f5f5;
   transition: color 0.2s ease;
 }
- 
+
 .nav-links a:hover {
-  color: #ff4c4c;
+  color: #ff4c4c; /* colore al passaggio del mouse */
 }
- 
+
+/* Sezione hero con immagine di sfondo */
 .hero {
   position: relative;
   height: 90vh;
@@ -65,33 +72,34 @@ header {
   overflow: hidden;
 }
 
-/* Overlay scuro solo sull'immagine */
+/* Overlay scuro sopra l’immagine per contrasto testo */
 .hero::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 0; /* top, right, bottom, left = 0 */
   background: rgba(0, 0, 0, 0.4); /* più alto = più scuro */
   z-index: 1;
 }
 
-/* Il testo sta sopra l’overlay */
+/* Testo hero sopra l’overlay */
 .hero-text {
   position: relative;
   z-index: 2;
 }
- 
+
 .hero-text h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  text-shadow: 5px 5px 10px rgba(0,0,0,0.9);
+  text-shadow: 5px 5px 10px rgba(0,0,0,0.9); /* ombra testo */
 }
- 
+
 .hero-text p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
   text-shadow: 5px 5px 10px rgba(0,0,0,0.9);
 }
- 
+
+/* Pulsante call to action */
 .cta-button {
   background-color: #ff4c4c;
   color: #fff;
@@ -102,51 +110,55 @@ header {
   font-weight: bold;
   transition: background 0.3s ease;
 }
- 
+
 .cta-button:hover {
   background-color: #ff1f1f;
 }
- 
+
+/* Sezione caratteristiche */
 .features {
   padding: 4rem 2rem;
   background-color: #181818;
   text-align: center;
 }
- 
+
 .features h2 {
   margin-bottom: 2rem;
   font-size: 2rem;
 }
- 
+
+/* Griglia delle feature */
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
 }
- 
+
+/* Card feature */
 .feature-card {
   background-color: #2a2a2a;
   padding: 2rem;
   border-radius: 12px;
   transition: transform 0.2s;
 }
- 
+
 .feature-card:hover {
-  transform: scale(1.03);
+  transform: scale(1.03); /* leggero ingrandimento al passaggio */
 }
- 
+
+/* Sezione registrazione / signup */
 .signup {
   background-color: #222;
   padding: 3rem 2rem;
   text-align: center;
 }
- 
+
 .signup .cta-button.dark {
   background-color: #fff;
   color: #121212;
   margin-top: 1rem;
 }
- 
+
 .signup h2,
 .signup p {
   margin-bottom: 1.5rem;

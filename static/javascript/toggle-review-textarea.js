@@ -1,35 +1,29 @@
+// Mostra o nasconde il form di recensione e la visualizzazione statica
 function toggleEditor() {
-  const form = document.getElementById('recensione-form');
-  const view = document.getElementById('recensione-view');
-  form.style.display = form.style.display === 'none' ? 'block' : 'none';
-  view.style.display = view.style.display === 'none' ? 'block' : 'none';
+  const form = document.querySelector('#recensione-form'); // seleziona form
+  const view = document.querySelector('#recensione-view'); // seleziona visualizzazione recensione
+  $(form).toggle(); // mostra/nascondi form
+  $(view).toggle(); // mostra/nascondi visualizzazione
 }
 
-
-
-
+// Salva la recensione tramite POST
 function salvaRecensione(event) {
-  event.preventDefault();
+  event.preventDefault(); // evita il comportamento di submit predefinito
 
-  const form = document.getElementById("recensione-form");
-  const textarea = document.getElementById("textarea-recensione");
-  const filmId = document.querySelector(".recensione-personale-wrapper").dataset.filmId;
+  const textArea = document.querySelector('#textarea-recensione'); // testo della recensione
+  const filmId   = document.querySelector('.recensione-personale-wrapper').dataset.filmId; // id del film
 
+  // invia la recensione al server
   fetch(`/movie-card/${filmId}`, {
-    method: "POST",
-    body: new URLSearchParams({ recensione: textarea.value }),
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
+    method: "POST", // metodo POST
+    body: new URLSearchParams({ recensione: textArea.value }), // dati inviati
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // tipo di contenuto
   })
-    .then(res => res.json())
+    .then(res => res.json()) // legge la risposta JSON
     .then(data => {
       if (data.success) {
-        document.getElementById("recensione-testo-statico").textContent = textarea.value;
-        toggleEditor();
-      } else {
-        alert("Errore: " + (data.error || "impossibile salvare"));
-      }
+        document.querySelector('#recensione-testo-statico').textContent = textArea.value; // aggiorna testo visualizzato
+        toggleEditor(); // nasconde il form e mostra la visualizzazione
+      } 
     });
 }
-

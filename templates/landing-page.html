@@ -5,35 +5,52 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CineMatch – Trova il tuo prossimo film preferito</title>
+
+  <!-- collegamento al file CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='/css/style-landing-page.css') }}">
+
+  <!-- font Google -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+  <!-- barra di navigazione in alto -->
   <header>
     <nav class="navbar">
+      <!-- logo che rimanda alla home url_for serve per flask ed evita di inserire URL cablati prendendoli dinamicamente -->
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
+
+      <!-- link di registrazione -->
       <ul class="nav-links">
         <li><a href="{{ url_for('registrazione_bp.registrazione') }}">Registrati</a></li>
       </ul>
     </nav>
   </header>
  
+  <!-- sezione principale con titolo e CTA -->
   <section class="hero">
     <div class="hero-text">
       <h1>Scopri Film Perfetti per Te</h1>
       <p>Ricevi raccomandazioni basate sui tuoi gusti e su quelli dei tuoi amici.</p>
+
+      <!-- pulsante che porta alla sezione iscrizione -->
       <a href="#signup" class="cta-button">Inizia ora</a>
     </div>
   </section>
  
+  <!-- sezione con le caratteristiche del sito -->
   <section class="features" id="features">
     <h2>Come Funziona CineMatch</h2>
+
     <div class="feature-grid">
+      <!-- prima card -->
       <div class="feature-card">
         <h3>🎥 Valuta i film</h3>
         <p>Dai un voto ai film che hai visto e costruisci il tuo profilo cinematografico.</p>
       </div>
+
+      <!-- seconda card -->
       <div class="feature-card">
         <h3>📚 Crea liste</h3>
         <p>Organizza i tuoi film preferiti e condividi le tue raccolte.</p>
@@ -41,11 +58,20 @@
     </div>
   </section>
  
+  <!-- sezione di registrazione -->
   <section class="signup" id="signup">
     <h2>Unisciti a CineMatch</h2>
     <p>Inizia il tuo viaggio nel mondo del cinema oggi stesso.</p>
+
+    <!-- pulsante per andare alla pagina di registrazione -->
     <a href="{{ url_for('registrazione_bp.registrazione') }}" class="cta-button dark">Registrati ora</a>
   </section>
- 
+  
+  <!-- libreria jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+          crossorigin="anonymous">
+  </script>
+
 </body>
 </html>

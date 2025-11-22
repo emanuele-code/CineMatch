@@ -1,22 +1,24 @@
+// Mostra o nasconde il dropdown corrispondente
 function toggleDropdown(id) {
-  const dropdown = document.getElementById('dropdown-' + id);
-  dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+  const dropdown = document.querySelector('#dropdown-' + id); // seleziona dropdown
+  $(dropdown).toggle();                                       // mostra/nascondi con jQuery
 }
 
-function updateStatus(id, newStatus) {
+// Aggiorna lo stato di un film
+function aggiornaStato(id, nuovoStato) {
   fetch(`/update-status/${id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ stato: newStatus })
+    method: 'POST',                                  // metodo POST
+    headers: { 'Content-Type': 'application/json' }, // tipo di contenuto JSON
+    body: JSON.stringify({ stato: nuovoStato })      // dati inviati
   })
-  .then(response => {
-    if (response.ok) {
-      window.location.reload(); // Ricarica la pagina per riflettere le modifiche
-    } else {
-      alert("Errore durante l'aggiornamento dello stato");
+  .then(response => response.json())                 // leggi la risposta JSON
+  .then(data => {
+    if (data.success) {
+      const divStato = document.querySelector(`#status-${id}`); // seleziona div stato
+      if (divStato) {
+        divStato.textContent = nuovoStato;          // aggiorna testo
+        divStato.className   = 'movie-status ' + nuovoStato.toLowerCase(); // aggiorna classe
+      }
     }
   });
 }
-

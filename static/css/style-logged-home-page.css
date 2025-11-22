@@ -1,14 +1,16 @@
+/* --- Stile base della pagina --- */
 body {
-  margin: 0;
-  font-family: 'Raleway', sans-serif;
-  background-color: #121212;
-  color: #f0f0f0;
+  margin: 0; /* rimuove margini predefiniti */
+  font-family: 'Raleway', sans-serif; /* font principale */
+  background-color: #121212; /* sfondo scuro */
+  color: #f0f0f0; /* testo chiaro */
 }
 
+/* Header e Navbar */
 header {
   background-color: #1c1c1c;
   padding: 0.6rem 2rem;
-  position: sticky;
+  position: sticky; /* rimane in cima */
   top: 0;
   z-index: 1000;
 }
@@ -27,7 +29,7 @@ header {
 }
 
 .logo:hover {
-  color: #ffcc00;
+  color: #ffcc00; /* colore al passaggio */
 }
 
 .nav-links {
@@ -46,6 +48,7 @@ header {
   color: #ff4c4c;
 }
 
+/* Contenitore principale della pagina */
 .container {
   padding: 2rem;
   display: flex;
@@ -55,51 +58,50 @@ header {
   margin: 0 auto;
 }
 
+/* Titoli di sezione */
 .section-title {
   font-size: 2rem;
   color: #ffcc00;
   text-align: left;
 }
 
+/* --- Carosello slider --- */
 .slider-wrapper {
   position: relative;
   width: 100%;
-  /* Cambiato overflow da hidden a visible per permettere overflow */
-  overflow: visible;
+  overflow: visible; /* permette overflow per effetti visivi */
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.slider {
+  display: flex;
+  scroll-behavior: smooth; /* scroll fluido */
+  width: 100%;
 }
 
 .slider a {
   display: block;
   flex-shrink: 0;
-  width: 100%;           /* più largo del 100% per overflow */
+  width: 100%;
   height: 600px;
   position: relative;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* centrato */
 }
 
 .slider img {
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* meglio di fill per mantenere proporzioni */
-  border-radius: 10px;  
+  object-fit: cover; /* mantiene proporzioni */
+  border-radius: 10px;
 }
 
-
-
-.slider {
-  display: flex;
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-/* Navigazione carosello */
+/* Pallini di navigazione del carosello */
 .slider-nav {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;  
+  gap: 0.5rem;
 }
 
 .slider-nav a {
@@ -115,6 +117,7 @@ header {
   background-color: #e50914;
 }
 
+/* Linea divisoria */
 .divider {
   border: none;
   border-bottom: 1px solid #444;
@@ -122,21 +125,23 @@ header {
   width: 100%;
 }
 
+/* --- Griglia film --- */
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); /* Più larghe di prima */
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
   gap: 2rem;
   padding: 2rem;
   max-width: 1200px;
   margin: auto;
-  padding-bottom: 100px; /* ← spazio extra per evitare che il footer copra le card */
+  padding-bottom: 100px; /* spazio per il footer */
 }
 
+/* Scheda film singola */
 .movie-card {
   background-color: #1e1e1e;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -149,15 +154,16 @@ header {
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
 }
 
+/* Copertina film */
 .movie-cover img {
   width: 100%;
-  height: 270px;         /* Altezza fissa */
-  object-fit: cover;     /* Ritaglia in modo che riempia lo spazio */
+  height: 270px;
+  object-fit: cover;
   display: block;
   border-bottom: 1px solid #333;
 }
 
-
+/* Meta info film */
 .movie-meta {
   padding: 1rem;
   font-size: 0.9rem;
@@ -171,7 +177,7 @@ header {
   align-items: center;
 }
 
-.stars {
+.stelle {
   color: gold;
   font-size: 1.1rem;
 }
@@ -180,6 +186,7 @@ header {
   margin: 0.3rem 0;
 }
 
+/* Stato film */
 .movie-status {
   position: static;
   bottom: 0.8rem;
@@ -200,12 +207,13 @@ header {
   color: #fff;
 }
 
+/* Titoli principali h1 */
 h1 {
   text-align: center;
   padding: 2rem;
 }
 
-
+/* --- Slider orizzontale per popolarità --- */
 .horizontal-slider-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
@@ -226,7 +234,7 @@ h1 {
   flex-shrink: 0;
 }
 
-
+/* --- Dropdown utente --- */
 .dropdown {
   position: relative;
 }

@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const userDropdown = document.getElementById('userDropdown');
-    const dropdownMenu = document.getElementById('dropdownMenu');
+    const userDropdown  = document.querySelector('#userDropdown');
+    const dropdownMenu  = document.querySelector('#dropdownMenu');
 
     userDropdown.addEventListener('click', function (e) {
-      e.preventDefault();
-      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        e.preventDefault();
+        $(dropdownMenu).toggle();
     });
 
     document.addEventListener('click', function (e) {
-      if (!userDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
-        dropdownMenu.style.display = 'none';
-      }
+        if (!userDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            $(dropdownMenu).hide();
+        }
     });
-  });
+});

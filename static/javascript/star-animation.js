@@ -1,37 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const starContainers = document.querySelectorAll('.interactive-stars');
+  // Seleziona tutti i contenitori delle stelle
+  document.querySelectorAll('.interactive-stars').forEach(contenitore => {
+    const stelle        = contenitore.querySelectorAll('.star'); // tutte le stelle nel contenitore
+    let   stelleAttuali = parseInt(contenitore.dataset.stelleAttuali) || 0; // voto corrente
+    const filmId        = contenitore.dataset.filmId; // ID del film
 
-  starContainers.forEach(container => {
-    const stars = container.querySelectorAll('.star');
-    const currentStars = parseInt(container.dataset.currentStars) || 0;
-
-    function highlightStars(count) {
-      stars.forEach((star, idx) => {
-        if (idx < count) {
-          star.classList.add('filled');
-        } else {
-          star.classList.remove('filled');
-        }
+    // Funzione per evidenziare le stelle fino a "count"
+    function illuminaStelle(count) {
+      stelle.forEach((stella, idx) => {
+        stella.classList.toggle('filled', idx < count); // aggiunge/rimuove classe 'filled'
       });
     }
 
-    stars.forEach((star, idx) => {
-      star.addEventListener('mouseover', () => {
-        highlightStars(idx + 1);
-      });
+    // Eventi per ogni stella
+    stelle.forEach((stella, idx) => {
+      stella.addEventListener('mouseover', () => illuminaStelle(idx + 1)); // evidenzia al passaggio
+      stella.addEventListener('mouseout',  () => illuminaStelle(stelleAttuali)); // ripristina stelle correnti
+      stella.addEventListener('click', () => {
+        const voto    = idx + 1;
+        stelleAttuali = voto;
+        contenitore.dataset.stelleAttuali = voto; // aggiorna dataset
+        illuminaStelle(voto); // evidenzia stelle selezionate
 
-      star.addEventListener('mouseout', () => {
-        highlightStars(currentStars);
-      });
+        const statusDiv = document.querySelector(`#status-${filmId}`);
 
-      star.addEventListener('click', () => {
-        container.dataset.currentStars = idx + 1;
-        highlightStars(idx + 1);
-        // Qui potresti aggiungere anche una chiamata ajax per salvare il voto utente
+        // Se voto > 0, aggiorna lo stato a "visto"
+        if (statusDiv && voto > 0) {
+          statusDiv.innerHTML = 'Visto';
+          statusDiv.className = 'movie-status visto';
+        
+          // invia aggiornamento stato al server
+          fetch('/aggiorna_stato', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ film_id: filmId, stato: 'visto' })
+          });
+        }
+
+        // invia il voto al server
+        fetch('/aggiorna_voto', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ film_id: filmId, voto })
+        });
+
       });
     });
 
-    // Imposta la visualizzazione iniziale
-    highlightStars(currentStars);
+    // Imposta la visualizzazione iniziale delle stelle
+    illuminaStelle(stelleAttuali);
   });
 });

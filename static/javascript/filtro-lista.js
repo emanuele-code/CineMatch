@@ -1,35 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const statoFiltro = document.getElementById('statoFiltro');
-  const stelleFiltro = document.getElementById('stelleFiltro');
-  const genereFiltro = document.getElementById('genereFiltro');
-  const cards = document.querySelectorAll('.movie-card');
+  // Seleziono i filtri
+  const statoFiltro  = document.querySelector('#statoFiltro');
+  const stelleFiltro = document.querySelector('#stelleFiltro');
+  const genereFiltro = document.querySelector('#genereFiltro');
+  // Seleziono tutte le card dei film
+  const carte        = document.querySelectorAll('.movie-card');
 
+  // Funzione per filtrare le card
   function filtra() {
-    const statoVal = statoFiltro.value;
-    const stelleVal = stelleFiltro.value;
-    const genereVal = genereFiltro.value;
+    const statoVal  = statoFiltro.value;   // valore selezionato del filtro stato
+    const stelleVal = stelleFiltro.value;  // valore selezionato del filtro stelle
+    const genereVal = genereFiltro.value;  // valore selezionato del filtro genere
 
-    cards.forEach(card => {
-      const statoDiv   = card.querySelector('.movie-status');
-      const stelleDiv  = card.querySelector('.interactive-stars');
-      const genereText = card.querySelector('p:nth-of-type(3)')?.textContent || ''; // "Genere: Azione"
+    carte.forEach(carta => {
+      const statoDiv   = carta.querySelector('.movie-status');          // div stato del film
+      const stelleDiv  = carta.querySelector('.interactive-stars');    // div stelle del film
+      const genereText = carta.querySelector('p:nth-of-type(3)')?.textContent || ''; // testo genere
 
-      const statoClass   = statoDiv?.className.split(' ').pop(); // es: "visto"
-      const currentStars = parseInt(stelleDiv?.dataset.currentStars || 0);
-      const genere       = genereText.toLowerCase().split(':')[1]?.trim() || '';
+      const statoClass    = statoDiv?.className.split(' ').pop();       // classe stato
+      const stelleAttuali = parseInt(stelleDiv?.dataset.stelleAttuali || 0); // numero stelle
+      const genere        = genereText.toLowerCase().split(':')[1]?.trim() || ''; // testo genere pulito
 
-      const matchStato  = statoVal === 'tutti' || statoClass === statoVal;
-      const matchStelle = stelleVal === 'tutte' || currentStars === parseInt(stelleVal);
+      // verifico se la card corrisponde ai filtri
+      const matchStato  = statoVal  === 'tutti' || statoClass === statoVal;
+      const matchStelle = stelleVal === 'tutte' || stelleAttuali === parseInt(stelleVal);
       const matchGenere = genereVal === 'tutti' || genere === genereVal;
 
-      if (matchStato && matchStelle && matchGenere) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
+      // mostro/nascondo la card in base ai filtri
+      $(carta).toggle(matchStato && matchStelle && matchGenere);
     });
   }
 
+  // Event listener sui filtri per applicare il filtro al cambiamento
   statoFiltro.addEventListener('change',  filtra);
   stelleFiltro.addEventListener('change', filtra);
   genereFiltro.addEventListener('change', filtra);

@@ -1,33 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const slides = document.querySelectorAll('.slider a');
-  const navLinks = document.querySelectorAll('.slider-nav a');
-  let currentIndex = 0;
+  const slides     = document.querySelectorAll('.slider a');
+  const navLinks   = document.querySelectorAll('.slider-nav a');
+  let indiceAttuale = 0;
 
-  function showSlide(index) {
-    slides.forEach(slide => slide.style.display = 'none');
-    slides[index].style.display = 'block';
+  function mostraSlide(index) {
+    slides.forEach(slide => $(slide).hide());   
+    $(slides[index]).show();                   
   }
 
-  showSlide(currentIndex);
+  mostraSlide(indiceAttuale);
 
-  // Cambia slide ogni 5 secondi
-  let interval = setInterval(() => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
+  // cambia slide ogni 5 secondi
+  let intervallo = setInterval(() => {
+    indiceAttuale = (indiceAttuale + 1) % slides.length;
+    mostraSlide(indiceAttuale);
   }, 5000);
 
-  // Gestisci click sulle nav
+  // gestisci i click sul nav
   navLinks.forEach((link, index) => {
     link.addEventListener('click', e => {
-      e.preventDefault(); // Previeni scroll con ancore
-      currentIndex = index;
-      showSlide(currentIndex);
+      e.preventDefault(); 
+      indiceAttuale = index;
+      mostraSlide(indiceAttuale);
 
-      // resetta timer se vuoi
-      clearInterval(interval);
-      interval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % slides.length;
-        showSlide(currentIndex);
+      // reset timer 
+      clearInterval(intervallo);
+      intervallo = setInterval(() => {
+        indiceAttuale = (indiceAttuale + 1) % slides.length;
+        mostraSlide(indiceAttuale);
       }, 5000);
     });
   });

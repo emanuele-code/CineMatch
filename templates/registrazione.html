@@ -10,8 +10,10 @@
 </head>
 
 <body>
+    <!-- Header con navbar -->
     <header>
         <nav class="navbar">
+            <!-- Logo con link alla home -->
             <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
             <ul class="nav-links">
                 <li><a href="">Registrati</a></li>
@@ -19,11 +21,14 @@
         </nav>
     </header>
 
+    <!-- Main: contenitore dei form -->
     <main class="form-wrapper">
 
+        <!-- Form registrazione -->
         <div id="registration-form" class="form-container {% if not show_login %}active{% endif %}">            
             <h2>Registrazione</h2>
-            
+
+            <!-- Messaggi flash di errore o conferma -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <ul class="flashes">
@@ -46,12 +51,16 @@
 
                 <button type="submit">Registrati</button>
             </form>
+
+            <!-- Link per passare al form di login -->
             <div class="toggle-link" onclick="toggleForms()">Hai già un account? Accedi</div>
         </div>
 
+        <!-- Form login -->
         <div id="login-form" class="form-container {% if show_login %}active{% endif %}">
             <h2>Login</h2>
             
+            <!-- Messaggi flash -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <ul class="flashes">
@@ -71,10 +80,18 @@
 
                 <button type="submit">Accedi</button>
             </form>
+
+            <!-- Link per passare al form di registrazione -->
             <div class="toggle-link" onclick="toggleForms()">Non hai un account? Registrati</div>
         </div>
     </main>
 
+    <!-- Script per toggle tra registrazione e login -->
     <script src="{{ url_for('static', filename='javascript/registrazione-toggle.js') }}"></script>
+    <!-- jQuery da CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+            crossorigin="anonymous">
+    </script>
 </body>
 </html>
