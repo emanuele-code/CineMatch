@@ -1,75 +1,86 @@
+# Cinematch
 
-# Come avviare CineMatch
+Applicazione web Flask per gestire film, utenti e recensioni, con database MongoDB.
 
-## Prerequisiti
-- Python 3
-- MongoDB
+## Requisiti
 
-## Installazione e configurazione
+- Docker e Docker Compose installati
+- Browser web
 
-1. **Apri la cartella del progetto**
+---
+
+## Avvio dell’app
+
+1. Clona il repository (se necessario):
+
 ```bash
-cd CineMatch
+git clone <URL-del-repo>
+cd <nome-cartella>
 ````
 
-2. **Crea ed attiva un ambiente virtuale**
+## Costruisce ed avvia il container
 
-   * Se l'ambiente virtuale non è stato ancora creato:
+````
+docker compose up --build
+````
 
-     ```bash
-     python3 -m venv venv
-     ```
-   * Attivalo con:
+Questo comando costruisce le immagini e avvia due servizi:
 
-     ```bash
-     source venv/bin/activate
-     ```
+`mongo`: il database MongoDB
 
-3. **Installa le dipendenze utili**
+`web`: l’app Flask
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+Apri il browser e vai su:
+````
+http://localhost:5000
+````
 
-4. **Avvia MongoDB**
+## Inserimento dati di test
 
-   ```bash
-   sudo systemctl start mongod
-   ```
-    Tip: In molti setup di sviluppo, MongoDB potrebbe già essere avviato in automatico (per esempio, può essere avviato da servizi di sistema o altri strumenti).
-    Se è già attivo un processo mongodb, puoi skippare questo passo - L'applicazione Flask si connette all'istanza già avviata di mongoDB
+Per pre-popolare il database con film e utenti di esempio:
 
-    Puoi verificare se mongodb è avviato provando ad accedere alla sua shell:
-    ```bash
-    mongosh
-    ```
-    Si dovrebbe connettere a mongodb//127.0.0.1:27017
+1. Apri la shell Mongo nel container:
+````
+docker compose exec mongo mongosh
+````
+2. Seleziona il database:
+````
+use cinematch
+````
+3. copia e incolla in ordine le query `db.films.insertMany([])` e successivamente `db.utenti.insertMany([...])` 
 
-6. **Popola il database**
-   
-   per testare possiamo popolare il database con film ed utenti (gli utenti li possiamo anche creare dinamicamente senza caricarli nel database da file)
 
-   * andare sul terminale aprire la shell di mongodb con l'istruzione `mongosh`
-   * apri/crea il database con l'istruzione `use cinematch`
-   * apri il file `cinematch_db.txt` e copia prima tutta la query `db.films.insertMany([...])` e incollala nella shell mongosh e clicca invio
-   * ripeti lo stesso passaggio per la query `db.utenti.insertMany([...])`
-   *  il terminale
 
-5. **Avvia l'app Flask**
+## Comandi utili 
+* Ricostruire e aggiornare i container dopo modifice:
+````
+docker compose up --build
+````
 
-   ```bash
-   export FLASK_APP=app.py
-   flask run
-   ```
+* Controlla lo stato del container:
+````
+docker compose ps
+````
 
-6. **Accedi all'app**
-   Apri il browser e visita:
+* vedere i log di Flask:
+````
+docker compose logs -f web
+````
 
-   ```
-   http://127.0.0.1:5000
-   ```
+* Vedere i log di mongo:
+````
+docker compose logs -f mongo
+````
 
-## Note
+* Fermare i container:
+````
+docker compose down
+````
 
-* Assicurati che mongodb sia stato avviato prima di avviare l'app.
-* L'app è avviata su porta `5000`.
+
+
+
+
+
+
+

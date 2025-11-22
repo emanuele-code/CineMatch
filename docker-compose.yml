@@ -1,0 +1,26 @@
+version: '3.9'  # Versione della sintassi Docker Compose
+
+services:
+  # Servizio MongoDB
+  mongo:
+    image: mongo:7              # Usa l'immagine ufficiale di MongoDB versione 7
+    container_name: cinematch-mongo  # Nome del container
+    ports:
+      - "27017:27017"           # Espone la porta 27017 sul host per connessioni esterne
+    volumes:
+      - mongo_data:/data/db     # Salva i dati in un volume persistente
+
+  # Servizio web Flask
+  web:
+    build: .                    # Costruisce l'immagine dal Dockerfile presente nella cartella corrente
+    container_name: cinematch-flask  # Nome del container
+    ports:
+      - "5000:5000"             # Espone la porta 5000 del container all'host
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/cinematch"  # Variabile d'ambiente per connettersi a Mongo
+    depends_on:
+      - mongo                   # Assicura che MongoDB parta prima del servizio Flask
+
+# Volumi persistenti
+volumes:
+  mongo_data:                   # Volume per mantenere i dati di Mongo anche se il container viene rimosso

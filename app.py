@@ -1,3 +1,4 @@
+import os
 from flask                                     import Flask, render_template, session, redirect, url_for, request, jsonify
 from flask_pymongo                             import PyMongo
 from bson.objectid                             import ObjectId
@@ -18,7 +19,9 @@ def crea_app():
     app.secret_key = 'key'  
 
     # Configure connection to MongoDB
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/cinematch"
+    # app.config["MONGO_URI"] = "mongodb://localhost:27017/cinematch" #hardcoded
+    mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/cinematch")
+    app.config["MONGO_URI"] = mongo_uri
 
     # init Flask-PyMongo
     mongo = PyMongo(app)
