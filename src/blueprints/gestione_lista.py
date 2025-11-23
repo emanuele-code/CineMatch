@@ -20,7 +20,7 @@ def lista():
     film_list = []
     if utente and 'filmVisti' in utente:
         # filtra i film visti o da vedere
-        filmVisti = [f for f in utente['filmVisti'] if f['stato'] in ['visto', 'da vedere']]
+        filmVisti = [f for f in utente['filmVisti'] if f.get('stato') in ['visto', 'da vedere']]
         film_ids  = [f['film_id'] for f in filmVisti]
         # prendi i documenti dei film corrispondenti
         film_list = list(films.find({'_id': {'$in': film_ids}}))

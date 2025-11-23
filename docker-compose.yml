@@ -1,5 +1,3 @@
-version: '3.9'  # Versione della sintassi Docker Compose
-
 services:
   # Servizio MongoDB
   mongo:

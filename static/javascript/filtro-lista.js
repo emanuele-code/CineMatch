@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const genereText = carta.querySelector('p:nth-of-type(3)')?.textContent || ''; // testo genere
 
       const statoClass    = statoDiv?.className.split(' ').pop();       // classe stato
-      const stelleAttuali = parseInt(stelleDiv?.dataset.stelleAttuali || 0); // numero stelle
+      const stelleAttuali = parseInt(stelleDiv?.dataset.currentStars || 0); // numero stelle
       const genere        = genereText.toLowerCase().split(':')[1]?.trim() || ''; // testo genere pulito
 
       // verifico se la card corrisponde ai filtri

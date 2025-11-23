@@ -10,9 +10,9 @@ def aggiorna_voto():
     user_id = session['id_utente']
 
     # dati inviati via JSON
-    data    = request.json
-    film_id = data.get('film_id')  # id del film da votare
-    voto    = data.get('voto')     # voto dell'utente (1-5)
+    data     = request.json
+    film_id  = data.get('film_id')  # id del film da votare
+    voto     = data.get('voto')     # voto dell'utente (1-5)
 
     # aggiorna il voto nella lista filmVisti dell'utente
     voti_bp.mongo.db.utenti.update_one(

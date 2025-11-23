@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Seleziona tutti i contenitori delle stelle
   document.querySelectorAll('.interactive-stars').forEach(contenitore => {
     const stelle        = contenitore.querySelectorAll('.star'); // tutte le stelle nel contenitore
-    let   stelleAttuali = parseInt(contenitore.dataset.stelleAttuali) || 0; // voto corrente
+    let   stelleAttuali = parseInt(contenitore.dataset.currentStars) || 0; // voto corrente
     const filmId        = contenitore.dataset.filmId; // ID del film
 
     // Funzione per evidenziare le stelle fino a "count"
