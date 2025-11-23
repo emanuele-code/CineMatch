@@ -19,6 +19,7 @@ cd <nome-cartella>
 ````
 
 ## Costruisce ed avvia il container
+Da terminale
 
 ````
 docker compose up --build
@@ -34,20 +35,6 @@ Apri il browser e vai su:
 ````
 http://localhost:5000
 ````
-
-## Inserimento dati di test
-
-Per pre-popolare il database con film e utenti di esempio:
-
-1. Apri la shell Mongo nel container:
-````
-docker compose exec mongo mongosh
-````
-2. Seleziona il database:
-````
-use cinematch
-````
-3. copia e incolla in ordine le query `db.films.insertMany([])` e successivamente `db.utenti.insertMany([...])` 
 
 
 
@@ -77,6 +64,10 @@ docker compose logs -f mongo
 docker compose down
 ````
 
+* Per rimuovere i volumi da Docker:
+````
+docker compose down -v
+````
 
 
 
