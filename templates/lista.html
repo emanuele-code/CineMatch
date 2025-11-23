@@ -102,9 +102,9 @@
             <!-- stato del film -->
             <div class="movie-status {{ film.stato_utente.replace(' ', '-') }}">
               {% if film.stato_utente == 'visto' %}
-                👁️ Visto
+                Visto
               {% elif film.stato_utente == 'da vedere' %}
-                🎯 Da vedere
+                Da vedere
               {% else %}
                 <!-- Stato non definito -->
               {% endif %}
