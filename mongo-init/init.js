@@ -1,7 +1,11 @@
-#############################################################
-#                         FILM                              #
-#############################################################
+// Script di inizializzazione MongoDB per CineMatch (viene eseguito una sola volta grazie a mongo_data nel yml)
 
+// Passa al database "cinematch" (lo crea se non esiste)
+db = db.getSiblingDB('cinematch');
+
+// ##############################################
+// #                 FILM                        #
+// ##############################################
 db.films.insertMany([
   { _id: ObjectId("69207cbb8023c7de1f32a03c"), id: 1, titolo: '28 Years Later', stelle: 0, regista: 'Danny Boyle', uscita: '2025', genere: 'Horror', immagine: 'images/28-Years-Later.jpg', trama: "Il sequel della saga zombie ambientato 28 anni dopo l'epidemia originale." },
   { _id: ObjectId("69207cbb8023c7de1f32a03d"), id: 2, titolo: 'Arrival', stelle: 0, regista: 'Denis Villeneuve', uscita: '2016', genere: 'Fantascienza', immagine: 'images/arrival.jpg', trama: 'Una linguista viene reclutata per comunicare con misteriosi alieni atterrati sulla Terra.' },
@@ -39,14 +43,9 @@ db.films.insertMany([
   { _id: ObjectId("69207cbb8023c7de1f32a05d"), id: 34, titolo: 'Your Name', stelle: 0, regista: 'Makoto Shinkai', uscita: '2016', genere: 'Animazione', immagine: 'images/your-name.jpg', trama: 'Due adolescenti scoprono di scambiarsi i corpi in modo misterioso e cercano di incontrarsi.' }
 ]);
 
-
-
-
-
-#############################################################
-#                       UTENTI                              #
-#############################################################
-
+// ##############################################
+// #                  UTENTI                      #
+// ##############################################
 db.utenti.insertMany([
   {
     _id: ObjectId("692080526d5043ce82a7b6c0"),

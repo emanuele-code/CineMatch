@@ -7,6 +7,7 @@ services:
       - "27017:27017"           # Espone la porta 27017 sul host per connessioni esterne
     volumes:
       - mongo_data:/data/db     # Salva i dati in un volume persistente
+      - ./mongo-init:/docker-entrypoint-initdb.d
 
   # Servizio web Flask
   web:
