@@ -1,29 +1,29 @@
-// Mostra o nasconde il form di recensione e la visualizzazione statica
+// Show or hide the review form and the static view
 function toggleEditor() {
-  const form = document.querySelector('#recensione-form'); // seleziona form
-  const view = document.querySelector('#recensione-view'); // seleziona visualizzazione recensione
-  $(form).toggle(); // mostra/nascondi form
-  $(view).toggle(); // mostra/nascondi visualizzazione
+  const form = document.querySelector('#recensione-form'); // select form
+  const view = document.querySelector('#recensione-view'); // select review view
+  $(form).toggle(); // show/hide form
+  $(view).toggle(); // show/hide view
 }
 
-// Salva la recensione tramite POST
+// Save the review via POST
 function salvaRecensione(event) {
-  event.preventDefault(); // evita il comportamento di submit predefinito
+  event.preventDefault(); // prevent default submit behavior
 
-  const textArea = document.querySelector('#textarea-recensione'); // testo della recensione
-  const filmId   = document.querySelector('.recensione-personale-wrapper').dataset.filmId; // id del film
+  const textArea = document.querySelector('#textarea-recensione'); // review text
+  const filmId   = document.querySelector('.recensione-personale-wrapper').dataset.filmId; // movie id
 
-  // invia la recensione al server
+  // send the review to the server
   fetch(`/movie-card/${filmId}`, {
-    method: "POST", // metodo POST
-    body: new URLSearchParams({ recensione: textArea.value }), // dati inviati
-    headers: { "Content-Type": "application/x-www-form-urlencoded" } // tipo di contenuto
+    method: "POST", // POST method
+    body: new URLSearchParams({ recensione: textArea.value }), // data sent
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // content type
   })
-    .then(res => res.json()) // legge la risposta JSON
+    .then(res => res.json()) // read JSON response
     .then(data => {
       if (data.success) {
-        document.querySelector('#recensione-testo-statico').textContent = textArea.value; // aggiorna testo visualizzato
-        toggleEditor(); // nasconde il form e mostra la visualizzazione
+        document.querySelector('#recensione-testo-statico').textContent = textArea.value; // update displayed text
+        toggleEditor(); // hide form and show view
       } 
     });
 }

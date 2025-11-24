@@ -1,29 +1,29 @@
-# Usa l'immagine ufficiale di Python 3.11 in versione slim come base leggera
+# Use the official Python 3.11 slim image as a lightweight base
 FROM python:3.11-slim
 
-# Imposta la cartella di lavoro all'interno del container
-# Tutti i comandi successivi saranno eseguiti in questa cartella
+# Set the working directory inside the container
+# All subsequent commands will be executed in this directory
 WORKDIR /app
 
-# Copia il file requirements.txt nel container
+# Copy the requirements.txt file into the container
 COPY requirements.txt .
 
-# Installa tutte le dipendenze elencate in requirements.txt
-# --no-cache-dir evita di salvare la cache dei pacchetti per risparmiare spazio
+# Install all dependencies listed in requirements.txt
+# --no-cache-dir avoids saving package cache to reduce space usage
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia tutto il codice dell’app nel container
+# Copy the entire application code into the container
 COPY . .
 
-# Espone la porta 5000, quella su cui Flask sarà in ascolto
+# Expose port 5000, the one used by Flask
 EXPOSE 5000
 
-# Imposta le variabili d'ambiente per Flask
-# FLASK_APP indica il modulo e la funzione che crea l'app Flask
-# FLASK_RUN_HOST 0.0.0.0 permette di accedere a Flask dall'esterno del container
+# Set environment variables for Flask
+# FLASK_APP specifies the module and the function that creates the Flask app
+# FLASK_RUN_HOST 0.0.0.0 allows Flask to be accessible from outside the container
 ENV FLASK_APP=app:crea_app
 ENV FLASK_RUN_HOST=0.0.0.0
 
-# Comando che viene eseguito all'avvio del container
-# Avvia l'app Flask in modalità server di sviluppo
+# Command executed when the container starts
+# Launches the Flask app in development server mode
 CMD ["flask", "run"]

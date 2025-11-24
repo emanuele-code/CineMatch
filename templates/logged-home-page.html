@@ -9,17 +9,17 @@
 </head>
 <body>
 
-  <!-- Header con barra di navigazione -->
+  <!-- Header with navigation bar -->
   <header>
     <nav class="navbar">
-      <!-- Logo che rimanda alla home -->
+      <!-- Logo linking to home -->
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
 
       <ul class="nav-links">
-        <!-- Link alla lista film -->
+        <!-- Link to movie list -->
         <li><a href="{{ url_for('lista_bp.lista') }}">lista</a></li>
 
-        <!-- Dropdown con nome utente e logout -->
+        <!-- Dropdown with username and logout -->
         <li class="dropdown">
           <a href="#" id="userDropdown">{{ username }}</a>
           <div class="dropdown-menu" id="dropdownMenu">
@@ -31,12 +31,12 @@
   </header>
 
   <main>
-    <!-- Sezione slider ultime uscite -->
+    <!-- Latest releases slider section -->
     <section class="container">
       <div class="slider-wrapper">
         <div class="slider">
           {% for film in ultime_uscite %}
-          <!-- Ogni slide è un link alla scheda del film -->
+          <!-- Each slide links to the movie card -->
           <a href="{{ url_for('movie_card.movie_card', film_id=film.id) }}">
             <img id="slide-{{ film.id }}" src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}" />
           </a>
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <!-- Pallini di navigazione dello slider -->
+      <!-- Slider navigation dots -->
       <div class="slider-nav">
         {% for film in ultime_uscite %}
         <a href="#slide-{{ film.id }}"></a>
@@ -54,11 +54,11 @@
       <hr class="divider">
     </section>
 
-    <!-- Sezione consigliata secondo i gusti dell'utente -->
+    <!-- Recommended films for the user section -->
     <section class='container'>
-      <h1>Secondo i tuoi gusti</h1>
+      <h1>Film consigliati</h1>
       <div class="movie-grid">
-        {% for film in lista_gusti[:16] %}
+        {% for film in lista_random[:16] %}
         <div class="movie-card">
           <div class="movie-cover">
             <a href="{{ url_for('movie_card.movie_card', film_id=film.id) }}">
@@ -66,7 +66,7 @@
             </a>
           </div>
           <div class="movie-meta">
-            <!-- Stelle statiche (non interattive) -->
+            <!-- Static stars (non interactive) -->
             <div class="rating-row">
               <div class="stelle">
                 {% for i in range(5) %}
@@ -75,11 +75,11 @@
               </div>
             </div>
 
-            <!-- Info film -->
-            <p><strong>Titolo:</strong>  {{ film.titolo }}</p>
-            <p><strong>Regista:</strong> {{ film.regista }}</p>
-            <p><strong>Genere:</strong>  {{ film.genere }}</p>
-            <p><strong>Uscita:</strong>  {{ film.uscita }}</p>
+            <!-- Movie info -->
+            <p><strong>Title:</strong>  {{ film.titolo }}</p>
+            <p><strong>Director:</strong> {{ film.regista }}</p>
+            <p><strong>Genre:</strong>  {{ film.genere }}</p>
+            <p><strong>Release year:</strong>  {{ film.uscita }}</p>
           </div>
         </div>
         {% endfor %}
@@ -87,7 +87,7 @@
       <hr class="divider">
     </section>
 
-    <!-- Sezione film popolari -->
+    <!-- Popular films section -->
     <section class='container'>
       <h1>Popolari</h1>
       <div class="horizontal-slider-wrapper">
@@ -100,7 +100,7 @@
               </a>
             </div>
             <div class="movie-meta">
-              <!-- Stelle statiche -->
+              <!-- Static stars -->
               <div class="rating-row">
                 <div class="stars">
                   {% for i in range(5) %}
@@ -109,11 +109,11 @@
                 </div>
               </div>
 
-              <!-- Info film -->
-              <p><strong>Titolo:</strong>  {{ film.titolo }}</p>
-              <p><strong>Regista:</strong> {{ film.regista }}</p>
-              <p><strong>Genere:</strong>  {{ film.genere }}</p>
-              <p><strong>Uscita:</strong>  {{ film.uscita }}</p>
+              <!-- Movie info -->
+              <p><strong>Title:</strong>  {{ film.titolo }}</p>
+              <p><strong>Director:</strong> {{ film.regista }}</p>
+              <p><strong>Genre:</strong>  {{ film.genere }}</p>
+              <p><strong>Release year:</strong>  {{ film.uscita }}</p>
             </div>
           </div>
           {% endfor %}
@@ -123,11 +123,11 @@
 
   </main>
 
-  <!-- Script carosello -->
+  <!-- Carousel script -->
   <script src="{{ url_for('static', filename='javascript/carosello.js') }}"></script>
-  <!-- Script menu utente -->
+  <!-- User menu script -->
   <script src="{{ url_for('static', filename='javascript/toggle-user-menu.js') }}"></script>
-  <!-- jQuery da CDN -->
+  <!-- jQuery from CDN -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
           integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
           crossorigin="anonymous">

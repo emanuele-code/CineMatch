@@ -1,77 +1,78 @@
 # Cinematch
 
-Applicazione web Flask per gestire film, utenti e recensioni, con database MongoDB.
+The application allows users to receive movie recommendations, write reviews, and share opinions. Titles cannot be searched directly: the idea is that suggestions come in a guided way, encouraging the discovery of new films without searching for them manually, fostering a more spontaneous experience based on community recommendations.
 
-## Requisiti
+## Requirements
 
-- Docker e Docker Compose installati
-- Browser web
+- Docker and Docker Compose installed
+- Web browser
 
 ---
 
-## Avvio dell’app
+## Starting the app
 
-1. Clona il repository (se necessario):
+1. Clone the repository (if needed):
 
 ```bash
-git clone <URL-del-repo>
-cd <nome-cartella>
+git clone <URL-of-repo>
+cd <folder-name>
 ````
 
-## Costruisce ed avvia il container
-Da terminale
+## Build and start the container
 
-````
+From terminal:
+
+```
 docker compose up --build
-````
+```
 
-Questo comando costruisce le immagini e avvia due servizi:
+This command builds the images and starts two services:
 
-`mongo`: il database MongoDB
+`mongo`: the MongoDB database
 
-`web`: l’app Flask
+`web`: the Flask application
 
-Apri il browser e vai su:
-````
+Open your browser and go to:
+
+```
 http://localhost:5000
-````
+```
 
+## Useful commands
 
+* Rebuild and update containers after changes:
 
-## Comandi utili 
-* Ricostruire e aggiornare i container dopo modifice:
-````
+```
 docker compose up --build
-````
+```
 
-* Controlla lo stato del container:
-````
+* Check container status:
+
+```
 docker compose ps
-````
+```
 
-* vedere i log di Flask:
-````
+* View Flask logs:
+
+```
 docker compose logs -f web
-````
+```
 
-* Vedere i log di mongo:
-````
+* View Mongo logs:
+
+```
 docker compose logs -f mongo
-````
+```
 
-* Fermare i container:
-````
+* Stop containers:
+
+```
 docker compose down
-````
+```
 
-* Per rimuovere i volumi da Docker:
-````
+* Remove Docker volumes:
+
+```
 docker compose down -v
-````
-
-
-
-
-
-
+```
 

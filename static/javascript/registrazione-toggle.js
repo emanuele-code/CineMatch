@@ -1,20 +1,20 @@
-// Controlla se il form di registrazione è visibile all'inizio
+// Check if the registration form is visibile at the beginning
 let isRegistrazioneVisibile = document.querySelector('#registration-form').classList.contains('active');
 
-// Funzione per alternare tra form registrazione e login
+// toggle from registration to login form and viceversa
 function toggleForms() {
-    // Invertiamo lo stato di visibilità del form di registrazione
+    // toggle the visibility status 
     isRegistrazioneVisibile = !isRegistrazioneVisibile;
 
-    const formRegistrazione = document.querySelector('#registration-form'); // form registrazione
-    const loginForm         = document.querySelector('#login-form');        // form login
+    const formRegistrazione = document.querySelector('#registration-form'); // registration form
+    const loginForm         = document.querySelector('#login-form');        // login form
 
     if (isRegistrazioneVisibile) {
-        // Mostra registrazione, nascondi login
+        // show registration and hide login
         formRegistrazione.classList.add('active');
         loginForm.classList.remove('active');
     } else {
-        // Mostra login, nascondi registrazione
+        // show login, and hide registration
         formRegistrazione.classList.remove('active');
         loginForm.classList.add('active');
     }

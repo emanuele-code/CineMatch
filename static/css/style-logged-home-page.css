@@ -1,16 +1,16 @@
-/* --- Stile base della pagina --- */
+/* --- Base page style --- */
 body {
-  margin: 0; /* rimuove margini predefiniti */
-  font-family: 'Raleway', sans-serif; /* font principale */
-  background-color: #121212; /* sfondo scuro */
-  color: #f0f0f0; /* testo chiaro */
+  margin: 0; /* removes default margins */
+  font-family: 'Raleway', sans-serif; /* main font */
+  background-color: #121212; /* dark background */
+  color: #f0f0f0; /* light text */
 }
 
-/* Header e Navbar */
+/* Header and Navbar */
 header {
   background-color: #1c1c1c;
   padding: 0.6rem 2rem;
-  position: sticky; /* rimane in cima */
+  position: sticky; /* stays at the top */
   top: 0;
   z-index: 1000;
 }
@@ -29,7 +29,7 @@ header {
 }
 
 .logo:hover {
-  color: #ffcc00; /* colore al passaggio */
+  color: #ffcc00; /* color on hover */
 }
 
 .nav-links {
@@ -48,7 +48,7 @@ header {
   color: #ff4c4c;
 }
 
-/* Contenitore principale della pagina */
+/* Main page container */
 .container {
   padding: 2rem;
   display: flex;
@@ -58,25 +58,25 @@ header {
   margin: 0 auto;
 }
 
-/* Titoli di sezione */
+/* Section titles */
 .section-title {
   font-size: 2rem;
   color: #ffcc00;
   text-align: left;
 }
 
-/* --- Carosello slider --- */
+/* --- Carousel slider --- */
 .slider-wrapper {
   position: relative;
   width: 100%;
-  overflow: visible; /* permette overflow per effetti visivi */
+  overflow: visible; /* allows overflow for visual effects */
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 .slider {
   display: flex;
-  scroll-behavior: smooth; /* scroll fluido */
+  scroll-behavior: smooth; /* smooth scrolling */
   width: 100%;
 }
 
@@ -87,17 +87,17 @@ header {
   height: 600px;
   position: relative;
   left: 50%;
-  transform: translateX(-50%); /* centrato */
+  transform: translateX(-50%); /* centered */
 }
 
 .slider img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* mantiene proporzioni */
+  object-fit: cover; /* maintain proportions */
   border-radius: 10px;
 }
 
-/* Pallini di navigazione del carosello */
+/* Carousel navigation dots */
 .slider-nav {
   display: flex;
   justify-content: center;
@@ -117,7 +117,7 @@ header {
   background-color: #e50914;
 }
 
-/* Linea divisoria */
+/* Divider line */
 .divider {
   border: none;
   border-bottom: 1px solid #444;
@@ -125,7 +125,7 @@ header {
   width: 100%;
 }
 
-/* --- Griglia film --- */
+/* --- Movie grid --- */
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
@@ -133,10 +133,10 @@ header {
   padding: 2rem;
   max-width: 1200px;
   margin: auto;
-  padding-bottom: 100px; /* spazio per il footer */
+  padding-bottom: 100px; /* space for the footer */
 }
 
-/* Scheda film singola */
+/* Single movie card */
 .movie-card {
   background-color: #1e1e1e;
   border-radius: 8px;
@@ -154,7 +154,7 @@ header {
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
 }
 
-/* Copertina film */
+/* Movie cover */
 .movie-cover img {
   width: 100%;
   height: 270px;
@@ -163,7 +163,7 @@ header {
   border-bottom: 1px solid #333;
 }
 
-/* Meta info film */
+/* Movie meta info */
 .movie-meta {
   padding: 1rem;
   font-size: 0.9rem;
@@ -186,7 +186,7 @@ header {
   margin: 0.3rem 0;
 }
 
-/* Stato film */
+/* Movie status */
 .movie-status {
   position: static;
   bottom: 0.8rem;
@@ -207,13 +207,13 @@ header {
   color: #fff;
 }
 
-/* Titoli principali h1 */
+/* Main h1 titles */
 h1 {
   text-align: center;
   padding: 2rem;
 }
 
-/* --- Slider orizzontale per popolarità --- */
+/* --- Horizontal slider for popularity --- */
 .horizontal-slider-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
@@ -234,7 +234,7 @@ h1 {
   flex-shrink: 0;
 }
 
-/* --- Dropdown utente --- */
+/* --- User dropdown --- */
 .dropdown {
   position: relative;
 }

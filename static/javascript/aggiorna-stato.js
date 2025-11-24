@@ -14,7 +14,7 @@ function aggiornaStato(film_id, stato) {
     } else if (stato === 'da vedere') {
       divStato.innerHTML = 'Da vedere';
       divStato.className = 'movie-status da-vedere';
-      // non toccare le stelle
+      // do not touch the stars
       if (contenitoreStelle) {
         voto = 0; 
       }
@@ -25,7 +25,7 @@ function aggiornaStato(film_id, stato) {
     }
   }
 
-  // Aggiorna il DOM delle stelle
+  // Update the stars in the DOM
   if (contenitoreStelle) {
     contenitoreStelle.dataset.stelleAttuali = voto;
     contenitoreStelle.querySelectorAll('.star').forEach((stella, idx) => {
@@ -33,11 +33,11 @@ function aggiornaStato(film_id, stato) {
     });
   }
 
-  // Chiudi dropdown
+  // Close dropdown
   const dropdown = document.querySelector(`#dropdown-${film_id}`);
   if (dropdown) $(dropdown).hide();
 
-  // Aggiorna stato sul server
+  // Update status on the server
   fetch('/aggiorna_stato', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -45,7 +45,7 @@ function aggiornaStato(film_id, stato) {
     body: JSON.stringify({ film_id, stato })
   });
 
-  // Aggiorna voto sul server
+  // Update rating on the server
   fetch('/aggiorna_voto', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

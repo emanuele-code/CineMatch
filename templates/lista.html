@@ -10,17 +10,17 @@
 
 <body>
 
-  <!-- header con barra di navigazione -->
+  <!-- header with navbar -->
   <header>
     <nav class="navbar">
-      <!-- logo che rimanda alla home -->
+      <!-- logo that send you to the home page-->
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
 
       <ul class="nav-links">
-        <!-- link alla lista film -->
+        <!-- link to the film list -->
         <li><a href="{{ url_for('lista_bp.lista') }}">lista</a></li>
 
-        <!-- dropdown con nome utente -->
+        <!-- dropdown with user name -->
         <li class="dropdown">
           <a href="#" id="userDropdown">{{ username }}</a>
           <div class="dropdown-menu" id="dropdownMenu">
@@ -35,7 +35,7 @@
   <main>
     <h1>La Mia lista di Film</h1>
 
-    <!-- filtri per stato, stelle e genere -->
+    <!-- filter status per genere, star and status -->
     <div class="film-filter">
 
       <div class="filter-group">
@@ -68,24 +68,24 @@
       </div>
     </div>
 
-    <!-- griglia dei film -->
+    <!-- film grid -->
     <div class="movie-grid">
       {% for film in film_list %}
       <div class="movie-card">
         
-        <!-- copertina del film con link alla pagina del film -->
+        <!-- film cover with link to the movie-card -->
         <div class="movie-cover">
           <a href="{{ url_for('movie_card.movie_card', film_id=film.id) }}">
             <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}" />
           </a>
         </div>
 
-        <!-- meta informazioni del film -->
+        <!-- meta information about the film -->
         <div class="movie-meta">
           <div class="rating-row">
 
-            <!-- stelle interattive se utente loggato, altrimenti solo visualizzazione -->
-            <!-- la sintassi con graffe appartiene a jinja 2 il motore template di flask -->
+            <!-- interactive stars if the user is logged -->
+            <!-- the syntax with bracket is jinja2 flask template -->
             <div class="stars">
               {% if utente_loggato %}
                 <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ film.voto_utente or 0 }}">
@@ -99,20 +99,19 @@
               {% endif %}
             </div>
 
-            <!-- stato del film -->
+            <!-- film status -->
             <div class="movie-status {{ film.stato_utente.replace(' ', '-') }}">
               {% if film.stato_utente == 'visto' %}
                 Visto
               {% elif film.stato_utente == 'da vedere' %}
                 Da vedere
               {% else %}
-                <!-- Stato non definito -->
               {% endif %}
             </div>
 
           </div>
 
-          <!-- informazioni testuali -->
+          <!-- text information -->
           <p><strong>Titolo:</strong>  {{ film.titolo }}</p>
           <p><strong>Regista:</strong> {{ film.regista }}</p>
           <p><strong>Genere:</strong>  {{ film.genere }}</p>
@@ -124,13 +123,12 @@
 
   </main>
 
-  <!-- script per dropdown menu utente -->
+  <!-- script for the user dropdown menu -->
   <script src="{{ url_for('static', filename='javascript/toggle-user-menu.js') }}"></script>
 
-  <!-- script per filtrare la lista film -->
+  <!-- script to filter film list -->
   <script src="{{ url_for('static', filename='javascript/filtro-lista.js') }}"></script>
 
-  <!-- libreria jQuery da CDN con SRI -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
           integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
           crossorigin="anonymous">

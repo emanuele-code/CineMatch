@@ -1,28 +1,28 @@
-/* Resetta margini e padding di tutti gli elementi e usa il box-sizing border-box */
+/* Reset margins and padding of all elements and use box-sizing border-box */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Stile base del body */
+/* Base style for body */
 body {
-  font-family: 'Raleway', sans-serif; /* font principale */
+  font-family: 'Raleway', sans-serif; /* main font */
   line-height: 1.6;
-  color: #fff; /* colore testo bianco */
-  background-color: #121212; /* sfondo scuro */
+  color: #fff; /* white text color */
+  background-color: #121212; /* dark background */
 }
 
-/* Header e barra di navigazione */
+/* Header and navigation bar */
 header {
-  background-color: #1c1c1c; /* sfondo header */
+  background-color: #1c1c1c; /* header background */
   padding: 1rem 2rem;
-  position: sticky; /* rimane in alto quando scrolli */
+  position: sticky; /* stays at top when scrolling */
   top: 0;
-  z-index: 1000; /* sopra altri elementi */
+  z-index: 1000; /* above other elements */
 }
 
-/* Navbar flex per distribuire logo e link */
+/* Flex navbar to distribute logo and links */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -38,14 +38,14 @@ header {
 }
 
 .logo:hover {
-  color: #ffcc00; /* colore al passaggio del mouse */
+  color: #ffcc00; /* color on hover */
 }
 
-/* Lista link */
+/* Links list */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.5rem; /* spazio tra link */
+  gap: 1.5rem; /* space between links */
 }
 
 .nav-links a {
@@ -55,10 +55,10 @@ header {
 }
 
 .nav-links a:hover {
-  color: #ff4c4c; /* colore al passaggio del mouse */
+  color: #ff4c4c; /* color on hover */
 }
 
-/* Sezione hero con immagine di sfondo */
+/* Hero section with background image */
 .hero {
   position: relative;
   height: 90vh;
@@ -72,16 +72,16 @@ header {
   overflow: hidden;
 }
 
-/* Overlay scuro sopra l’immagine per contrasto testo */
+/* Dark overlay above the image for text contrast */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0; /* top, right, bottom, left = 0 */
-  background: rgba(0, 0, 0, 0.4); /* più alto = più scuro */
+  background: rgba(0, 0, 0, 0.4); /* higher = darker */
   z-index: 1;
 }
 
-/* Testo hero sopra l’overlay */
+/* Hero text above the overlay */
 .hero-text {
   position: relative;
   z-index: 2;
@@ -90,7 +90,7 @@ header {
 .hero-text h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  text-shadow: 5px 5px 10px rgba(0,0,0,0.9); /* ombra testo */
+  text-shadow: 5px 5px 10px rgba(0,0,0,0.9); /* text shadow */
 }
 
 .hero-text p {
@@ -99,7 +99,7 @@ header {
   text-shadow: 5px 5px 10px rgba(0,0,0,0.9);
 }
 
-/* Pulsante call to action */
+/* Call to action button */
 .cta-button {
   background-color: #ff4c4c;
   color: #fff;
@@ -115,7 +115,7 @@ header {
   background-color: #ff1f1f;
 }
 
-/* Sezione caratteristiche */
+/* Features section */
 .features {
   padding: 4rem 2rem;
   background-color: #181818;
@@ -127,14 +127,14 @@ header {
   font-size: 2rem;
 }
 
-/* Griglia delle feature */
+/* Feature grid */
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
 }
 
-/* Card feature */
+/* Feature card */
 .feature-card {
   background-color: #2a2a2a;
   padding: 2rem;
@@ -143,10 +143,10 @@ header {
 }
 
 .feature-card:hover {
-  transform: scale(1.03); /* leggero ingrandimento al passaggio */
+  transform: scale(1.03); /* slight zoom on hover */
 }
 
-/* Sezione registrazione / signup */
+/* Registration / signup section */
 .signup {
   background-color: #222;
   padding: 3rem 2rem;

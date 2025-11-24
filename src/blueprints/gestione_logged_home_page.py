@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 logged_home_page_bp = Blueprint('logged_home_page_bp', __name__)
 
-# restituisce l'utente loggato o None
+# returns the logged-in user or None
 def get_utente():
     db = logged_home_page_bp.mongo.db
     id_utente = session.get('id_utente')
@@ -12,12 +12,12 @@ def get_utente():
         return None
     return db.utenti.find_one({"_id": ObjectId(id_utente)})
 
-# restituisce lo username dell'utente loggato
+# returns the username of the logged-in user
 def get_username():
     utente = get_utente()
     return utente.get('username') if utente else None
 
-# restituisce gli _id dei film visti o da vedere
+# returns the _id of movies marked as seen or to-watch
 def get_film_visti_ids():
     utente = get_utente()
     if not utente:
@@ -28,14 +28,14 @@ def get_film_visti_ids():
         if film.get('stato') in ['visto', 'da vedere'] and 'film_id' in film
     ]
 
-# restituisce i documenti dei film corrispondenti agli id
+# returns the movie documents corresponding to the ids
 def get_film_visti(film_visti_ids):
     db = logged_home_page_bp.mongo.db
     if not film_visti_ids:
         return []
     return list(db.films.find({'_id': {'$in': film_visti_ids}}))
 
-# prende le ultime uscite dal 2018 (5 casuali)
+# fetches the latest releases since 2018 (5 random)
 def get_ultime_uscite():
     db = logged_home_page_bp.mongo.db
     return list(db.films.aggregate([
@@ -43,12 +43,12 @@ def get_ultime_uscite():
         {'$sample': {'size': 5}}
     ]))
 
-# prende i film più popolari tra gli utenti (max 16)
+# fetches the most popular movies among users (max 16)
 def get_film_popolari():
     db = logged_home_page_bp.mongo.db
-    agg = db.utenti.aggregate([     # prende i documenti dalla collection e li filtra attraverso i stadi elencati sotto
-        {"$unwind": "$filmVisti"},  # esplode l'array in documenti singoli
-        {"$match": {"filmVisti.stato": {"$in": ["visto", "da vedere"]}}}, # mantiene solo i documenti che ricadono i questi due stati
+    agg = db.utenti.aggregate([      # get documents from the collection and filter through the stages below
+        {"$unwind": "$filmVisti"},  # explode the array into single documents
+        {"$match": {"filmVisti.stato": {"$in": ["visto", "da vedere"]}}}, # keep only documents with these states
         {"$group": {"_id": "$filmVisti.film_id", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
         {"$limit": 16}
@@ -56,12 +56,12 @@ def get_film_popolari():
     film_ids = [doc["_id"] for doc in agg]
     return list(db.films.find({"_id": {"$in": film_ids}}))
 
-# lista casuale di film (16)
+# fetches a random list of movies (16)
 def get_lista_random():
     db = logged_home_page_bp.mongo.db
     return list(db.films.aggregate([{'$sample': {'size': 16}}]))
 
-# route principale utenti loggati
+# main route for logged-in users
 @logged_home_page_bp.route('/logged-home-page', methods=['GET'])
 def logged_home_page():
     username = get_username()
@@ -70,11 +70,11 @@ def logged_home_page():
     
     ultime_uscite  = get_ultime_uscite()
     film_popolari  = get_film_popolari()
-    lista_gusti    = get_lista_random()
+    lista_random    = get_lista_random()
 
     return render_template(
         'logged-home-page.html',
-        lista_gusti   = lista_gusti,
+        lista_random  = lista_random,
         film_popolari = film_popolari,
         ultime_uscite = ultime_uscite,
         username      = username

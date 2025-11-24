@@ -5,52 +5,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CineMatch – Trova il tuo prossimo film preferito</title>
-
-  <!-- collegamento al file CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='/css/style-landing-page.css') }}">
-
-  <!-- font Google -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- barra di navigazione in alto -->
+  <!-- Nav bar -->
   <header>
     <nav class="navbar">
-      <!-- logo che rimanda alla home url_for serve per flask ed evita di inserire URL cablati prendendoli dinamicamente -->
+      <!-- logo that send you to home url_for used by flask to avoid static URL -->
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
 
-      <!-- link di registrazione -->
+      <!-- registration link -->
       <ul class="nav-links">
         <li><a href="{{ url_for('registrazione_bp.registrazione') }}">Registrati</a></li>
       </ul>
     </nav>
   </header>
  
-  <!-- sezione principale con titolo e CTA -->
+  <!-- main section with title and call-to-action -->
   <section class="hero">
     <div class="hero-text">
       <h1>Scopri Film Perfetti per Te</h1>
       <p>Ricevi raccomandazioni basate sui tuoi gusti e su quelli dei tuoi amici.</p>
 
-      <!-- pulsante che porta alla sezione iscrizione -->
+      <!-- button that send you to login section -->
       <a href="#signup" class="cta-button">Inizia ora</a>
     </div>
   </section>
  
-  <!-- sezione con le caratteristiche del sito -->
+  <!-- section with site infos -->
   <section class="features" id="features">
     <h2>Come Funziona CineMatch</h2>
 
     <div class="feature-grid">
-      <!-- prima card -->
+      <!-- first card -->
       <div class="feature-card">
         <h3>🎥 Valuta i film</h3>
         <p>Dai un voto ai film che hai visto e costruisci il tuo profilo cinematografico.</p>
       </div>
 
-      <!-- seconda card -->
+      <!-- second card -->
       <div class="feature-card">
         <h3>📚 Crea liste</h3>
         <p>Organizza i tuoi film preferiti e condividi le tue raccolte.</p>
@@ -58,12 +54,12 @@
     </div>
   </section>
  
-  <!-- sezione di registrazione -->
+  <!-- sign up section -->
   <section class="signup" id="signup">
     <h2>Unisciti a CineMatch</h2>
     <p>Inizia il tuo viaggio nel mondo del cinema oggi stesso.</p>
 
-    <!-- pulsante per andare alla pagina di registrazione -->
+    <!-- button that send you to the registration page -->
     <a href="{{ url_for('registrazione_bp.registrazione') }}" class="cta-button dark">Registrati ora</a>
   </section>
   

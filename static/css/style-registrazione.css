@@ -1,4 +1,4 @@
-/* Generali */
+/* General */
 body {
     font-family: 'Raleway', sans-serif;
     line-height: 1.6;
@@ -16,7 +16,6 @@ body {
     background-size: cover;
 }
 
-
 body::before {
     content: "";
     position: absolute;
@@ -24,7 +23,6 @@ body::before {
     background: rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
-
 
 header {
   background-color: #1c1c1c;
@@ -73,7 +71,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 80px; /* spazio per non sovrapporre header */
+    padding-top: 80px; /* space to avoid overlapping header */
     z-index: 2;
 }
 
@@ -84,7 +82,7 @@ header {
     border-radius: 8px;
     width: 300px;
     display: none;
-    margin-top: -300px; /* sposta il form più in alto */
+    margin-top: -300px; /* move form higher */
 }
 
 .form-container.active {
@@ -137,10 +135,7 @@ button:hover {
     color: #e6b800;
 }
 
-
-
-
-
+/* Flash messages */
 .flashes {
     list-style: none;
     padding: 0;

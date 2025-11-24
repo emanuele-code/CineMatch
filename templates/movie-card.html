@@ -5,25 +5,25 @@
   <meta charset="UTF-8">
   <title>{{ film.titolo }} – CineMatch</title>
 
-  <!-- CSS specifico per la scheda del film -->
+  <!-- CSS specific for the movie card -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-movie-card.css') }}">
-  <!-- font Google -->
+  <!-- Google font -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- Header con barra di navigazione -->
+  <!-- Header with navigation bar -->
   <header>
     <nav class="navbar">
       <!-- Logo -->
       <a href="{{ url_for('home') }}" class="logo">🎬 CineMatch</a>
 
       <ul class="nav-links">
-        <!-- Link alla lista film -->
+        <!-- Link to movie list -->
         <li><a href="{{ url_for('lista_bp.lista') }}">lista</a></li>
 
-        <!-- Dropdown utente con logout -->
+        <!-- User dropdown with logout -->
         <li class="dropdown">
           <a href="#" id="userDropdown">{{ username }}</a>
           <div class="dropdown-menu" id="dropdownMenu">
@@ -36,22 +36,22 @@
 
   <main class="film-detail">
 
-    <!-- Informazioni principali del film -->
+    <!-- Main movie information -->
     <div class="film-info">
 
-      <!-- Copertina del film -->
+      <!-- Movie cover -->
       <div class="film-cover">
         <img src="{{ url_for('static', filename=film.immagine) }}" alt="{{ film.titolo }}">
       </div>
 
-      <!-- Testo e informazioni -->
+      <!-- Text and details -->
       <div class="film-text">
         <div class="titolo-rating">
           <h1>{{ film.titolo }}</h1>
 
           <div class="rating-status">
 
-            <!-- Stelle del film: interattive se loggato, statiche se no -->
+            <!-- Movie stars: interactive if logged in, static otherwise -->
             <div class="stars">
               {% if utente_loggato %}
                 <div class="interactive-stars" data-film-id="{{ film._id }}" data-current-stars="{{ voto_utente or 0 }}">
@@ -64,47 +64,47 @@
               {% endif %}
             </div>
 
-            <!-- Stato del film (visto/da vedere) e dropdown per cambiarlo -->
+            <!-- Movie status (watched/to watch) and dropdown to change it -->
             <div class="status-wrapper">
               <div id="status-{{ film._id }}" class="movie-status {{ stato_utente.replace(' ', '-') if stato_utente else 'nessuno' }}" onclick="toggleDropdown('{{film._id}}')">
-                {% if stato_utente == 'visto' %}Visto
-                {% elif stato_utente == 'da vedere' %}Da vedere
-                {% else %}Imposta stato{% endif %}
+                {% if stato_utente == 'visto' %}Watched
+                {% elif stato_utente == 'da vedere' %}To watch
+                {% else %}Set status{% endif %}
               </div>
 
               <div class="status-dropdown" id="dropdown-{{ film._id }}" style="display:none;">
-                <div onclick="aggiornaStato('{{ film._id }}', 'visto')">Visto</div>
+                <div onclick="aggiornaStato('{{ film._id }}', 'visto')">Watched</div>
                 <hr>
-                <div onclick="aggiornaStato('{{ film._id }}', 'da vedere')">Da vedere</div>
+                <div onclick="aggiornaStato('{{ film._id }}', 'da vedere')">To watch</div>
                 <hr>
-                <div onclick="aggiornaStato('{{ film._id }}', 'nessuno')">Nessuno</div>
+                <div onclick="aggiornaStato('{{ film._id }}', 'nessuno')">None</div>
               </div>
             </div>
 
           </div>
         </div>
 
-        <!-- Info testuali del film -->
-        <p><strong>Genere:</strong> {{ film.genere }}</p>
-        <p><strong>Uscita:</strong> {{ film.uscita }}</p>
-        <p><strong>Regista:</strong> {{ film.regista }}</p>
+        <!-- Movie textual info -->
+        <p><strong>Genre:</strong> {{ film.genere }}</p>
+        <p><strong>Release year:</strong> {{ film.uscita }}</p>
+        <p><strong>Director:</strong> {{ film.regista }}</p>
 
-        <!-- Recensione personale dell’utente -->
+        <!-- User personal review -->
         <div class="recensione-personale-wrapper" data-film-id="{{ film._id }}">
-          <h3>La tua recensione</h3>
+          <h3>Your review</h3>
 
-          <!-- Visualizzazione della recensione -->
+          <!-- Review display -->
           <div id="recensione-view">
-            <p id="recensione-testo-statico">{{ recensione_utente or 'Nessuna recensione inserita.' }}</p>
-            <button class="btn-recensione" onclick="toggleEditor()">✏️ Modifica</button>
+            <p id="recensione-testo-statico">{{ recensione_utente or 'No review added yet.' }}</p>
+            <button class="btn-recensione" onclick="toggleEditor()">✏️ Edit</button>
           </div>
 
-          <!-- Form per modificare la recensione -->
+          <!-- Review edit form -->
           <form id="recensione-form" style="display: none;" onsubmit="salvaRecensione(event)">
-            <textarea id="textarea-recensione" name="recensione" placeholder="Scrivi la tua recensione qui...">{{ recensione_utente or '' }}</textarea>
+            <textarea id="textarea-recensione" name="recensione" placeholder="Write your review here...">{{ recensione_utente or '' }}</textarea>
             <div class="recensione-buttons">
-              <button type="submit">💾 Salva</button>
-              <button type="button" onclick="toggleEditor()">❌ Annulla</button>
+              <button type="submit">💾 Save</button>
+              <button type="button" onclick="toggleEditor()">❌ Cancel</button>
             </div>
           </form>
         </div>
@@ -112,9 +112,9 @@
       </div>
     </div>
 
-    <!-- Sezione film consigliati -->
+    <!-- Recommended movies section -->
     <section class="simili">
-      <h2>Film Consigliati</h2>
+      <h2>Recommended Movies</h2>
       <div class="carousel">
         {% for suggerito in consigliati %}
         <div class="carousel-item">
@@ -127,9 +127,9 @@
       </div>
     </section>
 
-    <!-- Recensioni degli altri utenti -->
+    <!-- Other users' reviews -->
     <div class="recensioni">
-      <h2>Recensioni degli utenti</h2>
+      <h2>User Reviews</h2>
       <div class="cards-recensioni">
         {% for recensione in recensioni[:5] %}
           <div class="recensione-card">
@@ -144,20 +144,20 @@
 
   </main>
 
-  <!-- Script per dropdown stato -->
+  <!-- Script for status dropdown -->
   <script src="{{ url_for('static', filename='javascript/toggle-droplist.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/aggiorna-stato.js') }}"></script>
 
-  <!-- Script per animazioni stelle -->
+  <!-- Script for star animations -->
   <script src="{{ url_for('static', filename='javascript/star-animation.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/set-stars.js') }}"></script>
 
-  <!-- Script menu utente e recensioni -->
+  <!-- User menu and review scripts -->
   <script src="{{ url_for('static', filename='javascript/toggle-user-menu.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/ruota-recensioni.js') }}"></script>
   <script src="{{ url_for('static', filename='javascript/toggle-review-textarea.js') }}"></script>
 
-  <!-- jQuery da CDN -->
+  <!-- jQuery from CDN -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
           integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
           crossorigin="anonymous">

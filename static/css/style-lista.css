@@ -1,27 +1,27 @@
-/* Stile base della pagina */
+/* Base page style */
 body {
-  margin: 0; /* elimina margini predefiniti */
-  font-family: 'Raleway', sans-serif; /* font principale */
-  background-color: #121212; /* sfondo scuro */
-  color: #f0f0f0; /* colore testo chiaro */
+  margin: 0; /* remove default margins */
+  font-family: 'Raleway', sans-serif; /* main font */
+  background-color: #121212; /* dark background */
+  color: #f0f0f0; /* light text color */
 }
 
-/* Titoli principali */
+/* Main headings */
 h1 {
   text-align: center;
   padding: 2rem;
 }
 
-/* Header e navbar */
+/* Header and navbar */
 header {
   background-color: #1c1c1c;
   padding: 0.6rem 2rem;
-  position: sticky; /* rimane in cima */
+  position: sticky; /* stays at the top */
   top: 0;
-  z-index: 1000; /* sopra gli altri elementi */
+  z-index: 1000; /* above other elements */
 }
 
-/* Navbar flex */
+/* Flex navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -37,10 +37,10 @@ header {
 }
 
 .logo:hover {
-  color: #ffcc00; /* colore al passaggio */
+  color: #ffcc00; /* color on hover */
 }
 
-/* Link di navigazione */
+/* Navigation links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -57,18 +57,18 @@ header {
   color: #ff4c4c;
 }
 
-/* Griglia delle schede film */
+/* Movie card grid */
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* schede larghe 220px min */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* cards minimum 220px wide */
   gap: 2rem;
   padding: 2rem;
   max-width: 1200px;
   margin: auto;
-  padding-bottom: 100px; /* spazio per evitare che il footer copra le card */
+  padding-bottom: 100px; /* space to prevent footer covering cards */
 }
 
-/* Card singola film */
+/* Single movie card */
 .movie-card {
   background-color: #1e1e1e;
   border-radius: 8px;
@@ -82,27 +82,27 @@ header {
 }
 
 .movie-card:hover {
-  transform: translateY(-5px); /* effetto hover */
+  transform: translateY(-5px); /* hover effect */
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
 }
 
-/* Copertina del film */
+/* Movie cover */
 .movie-cover img {
   width: 100%;
-  height: 270px; /* altezza fissa */
-  object-fit: cover; /* riempie l’area ritagliando se necessario */
+  height: 270px; /* fixed height */
+  object-fit: cover; /* fill area, crop if needed */
   display: block;
   border-bottom: 1px solid #333;
 }
 
-/* Info film sotto immagine */
+/* Movie info under image */
 .movie-meta {
   padding: 1rem;
   font-size: 0.9rem;
   position: relative;
 }
 
-/* Riga rating + stato */
+/* Rating + status row */
 .rating-row {
   display: flex;
   justify-content: space-between;
@@ -110,13 +110,13 @@ header {
   align-items: center;
 }
 
-/* Stelle statiche o gold */
+/* Static or gold stars */
 .stars {
   color: gold;
   font-size: 1.1rem;
 }
 
-/* Stelle interattive (per voto utente) */
+/* Interactive stars (for user rating) */
 .interactive-stars .star {
   cursor: pointer;
   font-size: 1.5rem;
@@ -129,15 +129,15 @@ header {
 }
 
 .interactive-stars .star:hover {
-  color: inherit; /* mantiene colore al passaggio */
+  color: inherit; /* maintain color on hover */
 }
 
-/* Paragrafi dentro meta */
+/* Paragraphs inside meta */
 .movie-meta p {
   margin: 0.3rem 0;
 }
 
-/* Stato film (visto / da vedere) */
+/* Movie status (watched / to watch) */
 .movie-status {
   position: static;
   bottom: 0.8rem;
@@ -148,7 +148,7 @@ header {
   font-weight: bold;
 }
 
-/* Colori stato */
+/* Status colors */
 .visto {
   background-color: #2e8b57;
   color: #fff;
@@ -159,7 +159,7 @@ header {
   color: #fff;
 }
 
-/* Dropdown utente */
+/* User dropdown */
 .dropdown {
   position: relative;
 }
@@ -188,7 +188,7 @@ header {
   background-color: #f0f0f0;
 }
 
-/* Filtro film (stato, stelle, genere) */
+/* Movie filter (status, stars, genre) */
 .film-filter {
   display: flex;
   justify-content: center;
@@ -201,7 +201,7 @@ header {
   max-width: 800px;
 }
 
-/* Gruppo singolo filtro */
+/* Single filter group */
 .filter-group {
   display: flex;
   flex-direction: row;
@@ -215,7 +215,7 @@ header {
   font-weight: bold;
 }
 
-/* Select input dei filtri */
+/* Filter select inputs */
 .filter-group select {
   padding: 0.4rem 1rem;
   border-radius: 6px;

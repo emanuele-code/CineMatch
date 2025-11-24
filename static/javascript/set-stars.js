@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Seleziono tutti i contenitori di stelle interattive
+  // Select every interactive star container
   document.querySelectorAll('.interactive-stars').forEach(contenitore => {
-    const filmId = contenitore.dataset.filmId; // prendo l'ID del film
+    const filmId = contenitore.dataset.filmId; // get film ID
 
-    // Aggiungo l'evento click a ciascuna stella
+    // add click event handler to each star
     contenitore.querySelectorAll('.star').forEach(stella => {
       stella.addEventListener('click', () => {
-        const voto = parseInt(stella.dataset.value); // leggo il valore della stella cliccata
+        const voto = parseInt(stella.dataset.value); // read the value of the clicked star
 
-        // Invio il voto al server via POST
+        // send the value to the server 
         fetch('/aggiorna_voto', {
-          method:      'POST',                       // metodo POST
-          headers:     { 'Content-Type': 'application/json' }, // tipo di contenuto JSON
-          credentials: 'include',                    // include cookie/sessione
-          body:        JSON.stringify({ film_id: filmId, voto }) // corpo della richiesta
+          method:      'POST',                       
+          headers:     { 'Content-Type': 'application/json' },   // type of content JSON
+          credentials: 'include',                                // include cookie/session
+          body:        JSON.stringify({ film_id: filmId, voto }) // request body
         });
       });
     });

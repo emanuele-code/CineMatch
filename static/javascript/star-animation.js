@@ -1,35 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Seleziona tutti i contenitori delle stelle
+  // Select all star containers
   document.querySelectorAll('.interactive-stars').forEach(contenitore => {
-    const stelle        = contenitore.querySelectorAll('.star'); // tutte le stelle nel contenitore
-    let   stelleAttuali = parseInt(contenitore.dataset.currentStars) || 0; // voto corrente
-    const filmId        = contenitore.dataset.filmId; // ID del film
+    const stelle        = contenitore.querySelectorAll('.star'); // all stars in the container
+    let   stelleAttuali = parseInt(contenitore.dataset.currentStars) || 0; // current rating
+    const filmId        = contenitore.dataset.filmId; // movie ID
 
-    // Funzione per evidenziare le stelle fino a "count"
+    // Function to highlight stars up to "count"
     function illuminaStelle(count) {
       stelle.forEach((stella, idx) => {
-        stella.classList.toggle('filled', idx < count); // aggiunge/rimuove classe 'filled'
+        stella.classList.toggle('filled', idx < count); // add/remove 'filled' class
       });
     }
 
-    // Eventi per ogni stella
+    // Events for each star
     stelle.forEach((stella, idx) => {
-      stella.addEventListener('mouseover', () => illuminaStelle(idx + 1)); // evidenzia al passaggio
-      stella.addEventListener('mouseout',  () => illuminaStelle(stelleAttuali)); // ripristina stelle correnti
+      stella.addEventListener('mouseover', () => illuminaStelle(idx + 1)); // highlight on hover
+      stella.addEventListener('mouseout',  () => illuminaStelle(stelleAttuali)); // restore current stars
       stella.addEventListener('click', () => {
         const voto    = idx + 1;
         stelleAttuali = voto;
-        contenitore.dataset.stelleAttuali = voto; // aggiorna dataset
-        illuminaStelle(voto); // evidenzia stelle selezionate
+        contenitore.dataset.stelleAttuali = voto; // update dataset
+        illuminaStelle(voto); // highlight selected stars
 
         const statusDiv = document.querySelector(`#status-${filmId}`);
 
-        // Se voto > 0, aggiorna lo stato a "visto"
+        // If rating > 0, update status to "watched"
         if (statusDiv && voto > 0) {
           statusDiv.innerHTML = 'Visto';
           statusDiv.className = 'movie-status visto';
         
-          // invia aggiornamento stato al server
+          // send status update to server
           fetch('/aggiorna_stato', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        // invia il voto al server
+        // send rating to the server
         fetch('/aggiorna_voto', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Imposta la visualizzazione iniziale delle stelle
+    // Set initial display of stars
     illuminaStelle(stelleAttuali);
   });
 });

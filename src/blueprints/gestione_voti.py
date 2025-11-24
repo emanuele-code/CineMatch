@@ -4,26 +4,26 @@ from pymongo import MongoClient
 
 voti_bp = Blueprint('voti_bp', __name__)
 
-# aggiorna il voto di un film per l'utente in sessione
+# update the rating of a movie for the user in session
 @voti_bp.route('/aggiorna_voto', methods=['POST'])
 def aggiorna_voto():
     user_id = session['id_utente']
 
-    # dati inviati via JSON
+    # data sent via JSON
     data     = request.json
-    film_id  = data.get('film_id')  # id del film da votare
-    voto     = data.get('voto')     # voto dell'utente (1-5)
+    film_id  = data.get('film_id')  # id of the movie to rate
+    voto     = data.get('voto')     # user's rating (1-5)
 
-    # aggiorna il voto nella lista filmVisti dell'utente
+    # update the rating in the user's filmVisti list
     voti_bp.mongo.db.utenti.update_one(
         {
             '_id': ObjectId(user_id),
             'filmVisti.film_id': ObjectId(film_id)
         },
         {
-            '$set': {'filmVisti.$.voto': voto}  # aggiorna il campo voto
+            '$set': {'filmVisti.$.voto': voto}  # update the vote field
         }
     )
 
-    # restituisce conferma con il voto aggiornato
+    # return confirmation with updated rating
     return jsonify({'success': True, 'voto': voto})

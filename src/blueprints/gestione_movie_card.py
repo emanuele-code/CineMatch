@@ -4,15 +4,15 @@ from pymongo import MongoClient
 
 movie_card_bp = Blueprint('movie_card', __name__)
 
-# prende un film dalla collezione tramite id
+# fetch a movie from the collection by id
 def get_film_by_id(film_id):
     db = movie_card_bp.mongo.db
     film = db.films.find_one({'id': film_id})
     if film:
-        film['_id'] = str(film['_id'])  # converte ObjectId in stringa
+        film['_id'] = str(film['_id'])  # convert ObjectId to string
     return film
 
-# prende film consigliati dello stesso genere, escluso quello attuale
+# fetch recommended movies of the same genre, excluding the current one
 def get_film_consigliati(film):
     db = movie_card_bp.mongo.db
     consigliati = list(db.films.find({
@@ -23,7 +23,7 @@ def get_film_consigliati(film):
         f['_id'] = str(f['_id'])
     return consigliati
 
-# informazioni dell'utente sul film: voto, stato, recensione
+# user information for the movie: rating, status, review
 def get_info_utente_per_film(film_oid):
     db = movie_card_bp.mongo.db
     id_utente = session.get('id_utente')
@@ -34,7 +34,7 @@ def get_info_utente_per_film(film_oid):
     username = None
     recensione = ""
 
-    # cerca se l'utente ha già aggiunto info su questo film
+    # check if the user has already added info about this movie
     if utente:
         username = utente.get('username')
         for fv in utente.get('filmVisti', []):
@@ -46,7 +46,7 @@ def get_info_utente_per_film(film_oid):
 
     return voto, stato, username, recensione
 
-# tutte le recensioni pubbliche degli utenti su un film
+# all public user reviews for a movie
 def get_recensioni_pubbliche(film_oid):
     db = movie_card_bp.mongo.db
     recensioni = []
@@ -60,7 +60,7 @@ def get_recensioni_pubbliche(film_oid):
         }
     })
 
-    # per ogni utente con recensione, aggiungi nome e testo
+    # for each user with a review, add username and text
     for utente in utenti_con_recensioni:
         for f in utente['filmVisti']:
             if str(f['film_id']) == str(film_oid) and f.get('recensione'):
@@ -71,12 +71,12 @@ def get_recensioni_pubbliche(film_oid):
 
     return recensioni
 
-# route per visualizzare la scheda del film
+# route to display the movie card
 @movie_card_bp.route('/movie-card/<int:film_id>')
 def movie_card(film_id):
     film = get_film_by_id(film_id)
     if not film:
-        return "Film non trovato", 404
+        return "Film not found", 404
 
     consigliati = get_film_consigliati(film)
     recensioni = get_recensioni_pubbliche(film['_id'])
@@ -97,7 +97,7 @@ def movie_card(film_id):
         recensioni=recensioni
     )
 
-# route per salvare o aggiornare una recensione dell'utente
+# route to save or update a user's review
 @movie_card_bp.route('/movie-card/<film_id>', methods=['POST'])
 def salva_recensione(film_id):
     db = movie_card_bp.mongo.db
@@ -105,13 +105,13 @@ def salva_recensione(film_id):
     id_utente = session.get('id_utente')
 
     if not id_utente:
-        return jsonify({"error": "Utente non autenticato"}), 401
+        return jsonify({"error": "User not authenticated"}), 401
 
     utente = db.utenti.find_one({"_id": ObjectId(id_utente)})
     if not utente:
-        return jsonify({"error": "Utente non trovato"}), 404
+        return jsonify({"error": "User not found"}), 404
 
-    # aggiorna recensione se film già presente in 'filmVisti'
+    # update review if the movie is already in 'filmVisti'
     trovato = False
     for fv in utente.get('filmVisti', []):
         if str(fv['film_id']) == film_id:
@@ -119,14 +119,14 @@ def salva_recensione(film_id):
             trovato = True
             break
 
-    # se film non presente, aggiungi nuovo elemento
+    # if movie not present, add new entry
     if not trovato:
         utente.setdefault('filmVisti', []).append({
             "film_id": ObjectId(film_id),
             "recensione": nuovo_testo
         })
 
-    # aggiorna il documento utente nel db
+    # update user document in db
     db.utenti.update_one(
         {"_id": ObjectId(id_utente)},
         {"$set": {"filmVisti": utente['filmVisti']}}

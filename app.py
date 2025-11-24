@@ -62,7 +62,7 @@ def crea_app():
         return redirect(url_for('registrazione_bp.registrazione'))  
     
     return app
-
+    
 
 # notify that this is the main entry point of the logic in the code
 if __name__ == "__main__":

@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   mostraSlide(indiceAttuale);
 
-  // cambia slide ogni 5 secondi
+  // change slide every 5 seconds
   let intervallo = setInterval(() => {
     indiceAttuale = (indiceAttuale + 1) % slides.length;
     mostraSlide(indiceAttuale);
   }, 5000);
 
-  // gestisci i click sul nav
+  // handle nav click
   navLinks.forEach((link, index) => {
     link.addEventListener('click', e => {
       e.preventDefault(); 

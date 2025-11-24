@@ -3,52 +3,52 @@ from bson import ObjectId
 
 stati_bp = Blueprint('stati_bp', __name__)
 
-# aggiunge un film alla lista dell'utente se non esiste
+# add a movie to the user's list if it doesn't exist
 def aggiungi_film(risultato, utente_oid, film_oid, stato):
     if risultato.matched_count == 0:
         stati_bp.mongo.db.utenti.update_one(
             {'_id': utente_oid},
             {'$push': {'filmVisti': {
                 'film_id': film_oid,
-                'voto'   : 0,       # voto iniziale
+                'voto'   : 0,       # initial rating
                 'stato'  : stato
             }}}
         )
 
-# aggiorna lo stato di un film per l'utente in sessione
+# update the status of a movie for the user in session
 @stati_bp.route('/aggiorna_stato', methods=['POST'])
 def aggiorna_stato():
     id_utente = session['id_utente']
 
-    # dati inviati via JSON
+    # data sent via JSON
     data = request.json
     film_id = data.get('film_id')
-    stato = data.get('stato')  # valori attesi: 'visto', 'da vedere', 'nessuno'
+    stato = data.get('stato')  # expected values: 'visto', 'da vedere', 'nessuno'
 
-    # converte in ObjectId per MongoDB
+    # convert to ObjectId for MongoDB
     film_oid = ObjectId(film_id)
     utente_oid = ObjectId(id_utente)
 
     if stato == 'nessuno':
-        # rimuove il film dalla lista se lo stato è "nessuno"
+        # remove the movie from the list if status is "none"
         stati_bp.mongo.db.utenti.update_one(
             {'_id': utente_oid},
             {'$pull': {'filmVisti': {'film_id': film_oid}}}
         )
     elif stato == 'da vedere':
-        # aggiorna o aggiunge il film con voto iniziale = 0
+        # update or add the movie with initial rating = 0
         risultato = stati_bp.mongo.db.utenti.update_one(
             {'_id': utente_oid, 'filmVisti.film_id': film_oid},
             {'$set': {'filmVisti.$.stato': stato, 'filmVisti.$.voto': 0}}
         )
         aggiungi_film(risultato, utente_oid, film_oid, stato)
     else:
-        # per altri stati validi (es. 'visto') prova ad aggiornare
+        # for other valid states (e.g., 'visto') attempt to update
         risultato = stati_bp.mongo.db.utenti.update_one(
             {'_id': utente_oid, 'filmVisti.film_id': film_oid},
             {'$set': {'filmVisti.$.stato': stato}}
         )
         aggiungi_film(risultato, utente_oid, film_oid, stato)
 
-    # risposta con stato aggiornato
+    # response with updated status
     return jsonify({'success': True, 'stato': stato})

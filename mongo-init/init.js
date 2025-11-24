@@ -1,6 +1,5 @@
-// Script di inizializzazione MongoDB per CineMatch (viene eseguito una sola volta grazie a mongo_data nel yml)
-
-// Passa al database "cinematch" (lo crea se non esiste)
+// mongoDb init script to populate cinematch (execute once thanks to mongo_data in yml)
+// pass to "cinematch" database (created if not existent)
 db = db.getSiblingDB('cinematch');
 
 // ##############################################

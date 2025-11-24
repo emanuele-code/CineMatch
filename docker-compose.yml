@@ -1,25 +1,25 @@
 services:
-  # Servizio MongoDB
+  # mongoDb service
   mongo:
-    image: mongo:7              # Usa l'immagine ufficiale di MongoDB versione 7
-    container_name: cinematch-mongo  # Nome del container
+    image: mongo:7              # Uses the official MongoDB image version 7
+    container_name: cinematch-mongo  # Container name
     ports:
-      - "27017:27017"           # Espone la porta 27017 sul host per connessioni esterne
+      - "27017:27017"           # Exposes port 27017 on the host for external connections
     volumes:
-      - mongo_data:/data/db     # Salva i dati in un volume persistente
-      - ./mongo-init:/docker-entrypoint-initdb.d
+      - mongo_data:/data/db     # Saves data in a persistent volume
+      - ./mongo-init:/docker-entrypoint-initdb.d   # Initialization scripts directory
 
-  # Servizio web Flask
+  # Flask web service
   web:
-    build: .                    # Costruisce l'immagine dal Dockerfile presente nella cartella corrente
-    container_name: cinematch-flask  # Nome del container
+    build: .                    # Builds the image from the Dockerfile in the current directory
+    container_name: cinematch-flask  # Container name
     ports:
-      - "5000:5000"             # Espone la porta 5000 del container all'host
+      - "5000:5000"             # Exposes port 5000 of the container to the host
     environment:
-      MONGO_URI: "mongodb://mongo:27017/cinematch"  # Variabile d'ambiente per connettersi a Mongo
+      MONGO_URI: "mongodb://mongo:27017/cinematch"  # Environment variable to connect to Mongo
     depends_on:
-      - mongo                   # Assicura che MongoDB parta prima del servizio Flask
+      - mongo                   # Ensures that MongoDB starts before the Flask service
 
-# Volumi persistenti
+# Persistent volumes
 volumes:
-  mongo_data:                   # Volume per mantenere i dati di Mongo anche se il container viene rimosso
+  mongo_data:                   # Volume to keep MongoDB data even if the container is removed
