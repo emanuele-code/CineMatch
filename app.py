@@ -1,5 +1,5 @@
 import os
-from flask                                     import Flask, render_template, session, redirect, url_for, request, jsonify
+from flask                                     import Flask, render_template, session, redirect, url_for, request, jsonify, make_response, send_file
 from flask_pymongo                             import PyMongo
 from bson.objectid                             import ObjectId
 from src.blueprints.registrazione              import registrazione_bp  # import blueprint
@@ -61,6 +61,13 @@ def crea_app():
         session.clear()  # delete the whole session
         return redirect(url_for('registrazione_bp.registrazione'))  
     
+    @app.route('/manifest.json')
+    def serve_manifest():
+        return send_file('manifest.json', mimetype='application/manifest+json')
+
+    @app.route('/sw.js')
+    def serve_sw():
+        return send_file('sw.js', mimetype='application/javascript')
     return app
     
 

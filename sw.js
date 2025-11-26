@@ -1,16 +1,15 @@
 const cacheName = 'pwaCinematch';
 
-// lists of assests to cache
 const cacheList = [
     '/', // L'indice della tua app (fondamentale per l'esperienza offline)
-    'manifest.json',
+    '/manifest.json',
 
     // css
-    'static/css/style-landing-page.css',
-    'static/css/style-lista.css',
-    'static/css/style-logged-home-page.css',
-    'static/css/style-movie-card.css',
-    'static/css/style-registrazione.css',
+    '/static/css/style-landing-page.css',
+    '/static/css/style-lista.css',
+    '/static/css/style-logged-home-page.css',
+    '/static/css/style-movie-card.css',
+    '/static/css/style-registrazione.css',
 
     // javascript
     '/static/javascript/aggiorna-stato.js',
@@ -23,15 +22,8 @@ const cacheList = [
     '/static/javascript/toggle-review-textarea.js',
     '/static/javascript/toggle-user-menu.js',
 
-    // html
-    '/landing-page.html',
-    '/lista.html',
-    '/logged-home-page.html',
-    '/movie-card.html',
-    '/registrazione.html',
-
     // images
-    '/static/images/clapperboard.jpg', //icona
+    '/static/images/clapperboard.jpg', //icon
     '/static/images/28-Years-Later.jpg',
     '/static/images/arrival.jpg',
     '/static/images/big-hero-6.jpeg', 
@@ -50,7 +42,7 @@ const cacheList = [
     '/static/images/how-to-train-your-dragon.jpg',
     '/static/images/inception.jpg',
     '/static/images/incredibles.jpg',
-    '/static/images/inglourious-basterds.jpg',
+    '/static/images/inglorious-basterds.jpg',
     '/static/images/inside-out.jpg',
     '/static/images/interstellar.jpg',
     '/static/images/kubo.jpg',
@@ -70,6 +62,8 @@ const cacheList = [
     '/static/images/your-name.jpg',
 ];
 
+
+
 // 1. 'install' event: Precaching of essential assets
 self.addEventListener('install', e => {
     console.log('Service Worker: Installazione avviata');
@@ -82,14 +76,39 @@ self.addEventListener('install', e => {
     );
 });
 
-// 2. 'fetch': it cache first and then loadd the network 
-self.addEventListener('fetch', e => {
-    // intercept http request and it try to respond first from cache, if it miss it will try with network
-    e.respondWith(
-        caches.match(e.request)
-            .then(cachedResponse => {
-                // if the resource is in the cache it will be returned instantly
-                return cachedResponse || fetch(e.request);
+
+
+// 2. 'fetch': it cache first and then ask to the network and save in cache 
+self.addEventListener('fetch', event => {
+
+    event.respondWith(
+        caches.match(event.request).then(cached => {
+            if (cached) {
+                return cached; // resources in cache
+            }
+
+            return fetch(event.request)
+                .then(response => {
+
+                    // dynamic caching of html pages in backend
+                    if (
+                        response.ok &&
+                        response.headers.get('Content-Type')?.includes('text/html')
+                    ) {
+                        const copy = response.clone();
+                        caches.open('html-pages').then(cache => {
+                            cache.put('/', copy);
+                            cache.put('/landing-page.html', copy);
+                            cache.put(event.request, copy);
+                        });
+                    }
+
+                    return response;
+                })
+                .catch(() => {
+                    // fallback HTML offline
+                    return caches.match('/offline.html');
+                });
         })
     );
 });
