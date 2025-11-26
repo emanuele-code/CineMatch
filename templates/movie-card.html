@@ -5,9 +5,8 @@
   <meta charset="UTF-8">
   <title>{{ film.titolo }} – CineMatch</title>
 
-  <!-- CSS specific for the movie card -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style-movie-card.css') }}">
-  <!-- Google font -->
+  <link rel="icon" type="image/jpg" href="/static/images/clapperboard.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -67,17 +66,17 @@
             <!-- Movie status (watched/to watch) and dropdown to change it -->
             <div class="status-wrapper">
               <div id="status-{{ film._id }}" class="movie-status {{ stato_utente.replace(' ', '-') if stato_utente else 'nessuno' }}" onclick="toggleDropdown('{{film._id}}')">
-                {% if stato_utente == 'visto' %}Watched
-                {% elif stato_utente == 'da vedere' %}To watch
-                {% else %}Set status{% endif %}
+                {% if stato_utente == 'visto' %}Visto
+                {% elif stato_utente == 'da vedere' %}Da guardare
+                {% else %}Imposta stato{% endif %}
               </div>
 
               <div class="status-dropdown" id="dropdown-{{ film._id }}" style="display:none;">
-                <div onclick="aggiornaStato('{{ film._id }}', 'visto')">Watched</div>
+                <div onclick="aggiornaStato('{{ film._id }}', 'visto')">Visto</div>
                 <hr>
-                <div onclick="aggiornaStato('{{ film._id }}', 'da vedere')">To watch</div>
+                <div onclick="aggiornaStato('{{ film._id }}', 'da vedere')">Da guardare</div>
                 <hr>
-                <div onclick="aggiornaStato('{{ film._id }}', 'nessuno')">None</div>
+                <div onclick="aggiornaStato('{{ film._id }}', 'nessuno')">Nessuno</div>
               </div>
             </div>
 
@@ -95,16 +94,16 @@
 
           <!-- Review display -->
           <div id="recensione-view">
-            <p id="recensione-testo-statico">{{ recensione_utente or 'No review added yet.' }}</p>
-            <button class="btn-recensione" onclick="toggleEditor()">✏️ Edit</button>
+            <p id="recensione-testo-statico">{{ recensione_utente or 'Non ancora recensito' }}</p>
+            <button class="btn-recensione" onclick="toggleEditor()">✏️ Modifica</button>
           </div>
 
           <!-- Review edit form -->
           <form id="recensione-form" style="display: none;" onsubmit="salvaRecensione(event)">
             <textarea id="textarea-recensione" name="recensione" placeholder="Write your review here...">{{ recensione_utente or '' }}</textarea>
             <div class="recensione-buttons">
-              <button type="submit">💾 Save</button>
-              <button type="button" onclick="toggleEditor()">❌ Cancel</button>
+              <button type="submit">💾 Salva</button>
+              <button type="button" onclick="toggleEditor()">❌ Cancella</button>
             </div>
           </form>
         </div>
@@ -129,7 +128,7 @@
 
     <!-- Other users' reviews -->
     <div class="recensioni">
-      <h2>User Reviews</h2>
+      <h2>Recensioni degli utenti</h2>
       <div class="cards-recensioni">
         {% for recensione in recensioni[:5] %}
           <div class="recensione-card">
