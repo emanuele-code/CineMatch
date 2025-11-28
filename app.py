@@ -61,10 +61,19 @@ def crea_app():
         session.clear()  # delete the whole session
         return redirect(url_for('registrazione_bp.registrazione'))  
     
+    
+    @app.route('/offline.html')
+    def offline():
+        return render_template('offline.html')
+    
+
+    # serve the manifest
     @app.route('/manifest.json')
     def serve_manifest():
         return send_file('manifest.json', mimetype='application/manifest+json')
 
+
+    # serve the service worker
     @app.route('/sw.js')
     def serve_sw():
         return send_file('sw.js', mimetype='application/javascript')

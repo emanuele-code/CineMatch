@@ -9,7 +9,7 @@ db.films.insertMany([
   { _id: ObjectId("69207cbb8023c7de1f32a03c"), id: 1, titolo: '28 Years Later', stelle: 0, regista: 'Danny Boyle', uscita: '2025', genere: 'Horror', immagine: 'images/28-Years-Later.jpg', trama: "Il sequel della saga zombie ambientato 28 anni dopo l'epidemia originale." },
   { _id: ObjectId("69207cbb8023c7de1f32a03d"), id: 2, titolo: 'Arrival', stelle: 0, regista: 'Denis Villeneuve', uscita: '2016', genere: 'Fantascienza', immagine: 'images/arrival.jpg', trama: 'Una linguista viene reclutata per comunicare con misteriosi alieni atterrati sulla Terra.' },
   { _id: ObjectId("69207cbb8023c7de1f32a03e"), id: 3, titolo: 'Big Hero 6', stelle: 0, regista: 'Don Hall', uscita: '2014', genere: 'Animazione', immagine: 'images/big-hero-6.jpeg', trama: 'Un giovane genio e il suo robot Baymax formano una squadra di supereroi.' },
-  { _id: ObjectId("69207cbb8023c7de1f32a03f"), id: 4, titolo: 'Black Panther', stelle: 0, regista: 'Ryan Coogler', uscita: '2018', genere: 'Azione', immagine: 'images/blackpanther.jpg', trama: 'Il re di Wakanda deve difendere il suo trono e il suo popolo da una nuova minaccia.' },
+  { _id: ObjectId("69207cbb8023c7de1f32a05d"), id: 4, titolo: 'Your Name', stelle: 0, regista: 'Makoto Shinkai', uscita: '2016', genere: 'Animazione', immagine: 'images/your-name.jpg', trama: 'Due adolescenti scoprono di scambiarsi i corpi in modo misterioso e cercano di incontrarsi.' },
   { _id: ObjectId("69207cbb8023c7de1f32a040"), id: 5, titolo: 'Blade Runner 2049', stelle: 0, regista: 'Denis Villeneuve', uscita: '2017', genere: 'Fantascienza', immagine: 'images/bladerunner2049.jpg', trama: "Un blade runner scopre un segreto che potrebbe cambiare il futuro dell'umanità." },
   { _id: ObjectId("69207cbb8023c7de1f32a041"), id: 6, titolo: 'Coco', stelle: 0, regista: 'Lee Unkrich', uscita: '2017', genere: 'Animazione', immagine: 'images/coco.jpg', trama: 'Un ragazzo appassionato di musica intraprende un viaggio nel mondo dei morti per scoprire la sua famiglia.' },
   { _id: ObjectId("69207cbb8023c7de1f32a042"), id: 7, titolo: 'The Dark Knight', stelle: 0, regista: 'Christopher Nolan', uscita: '2008', genere: 'Azione', immagine: 'images/dark-knight.jpg', trama: "Batman affronta il Joker in una battaglia per l'anima di Gotham City." },
@@ -38,8 +38,7 @@ db.films.insertMany([
   { _id: ObjectId("69207cbb8023c7de1f32a059"), id: 30, titolo: 'Sorry Baby', stelle: 0, regista: 'Eva Victor', uscita: '2025', genere: 'Drammatico', immagine: 'images/sorry-baby.jpg', trama: 'Una donna affronta il suo passato traumatico cercando giustizia e guarigione.' },
   { _id: ObjectId("69207cbb8023c7de1f32a05a"), id: 31, titolo: 'Spirited Away', stelle: 0, regista: 'Hayao Miyazaki', uscita: '2001', genere: 'Animazione', immagine: 'images/spirited-away.jpg', trama: 'Una ragazza entra in un mondo magico per salvare i suoi genitori trasformati in maiali.' },
   { _id: ObjectId("69207cbb8023c7de1f32a05b"), id: 32, titolo: 'Tenet', stelle: 0, regista: 'Christopher Nolan', uscita: '2020', genere: 'Fantascienza', immagine: 'images/tenet.jpg', trama: 'Un agente segreto deve manipolare il flusso del tempo per prevenire la Terza Guerra Mondiale.' },
-  { _id: ObjectId("69207cbb8023c7de1f32a05c"), id: 33, titolo: 'Toy Story', stelle: 0, regista: 'John Lasseter', uscita: '1995', genere: 'Animazione', immagine: 'images/toy-story.jpg', trama: "I giocattoli di un bambino prendono vita e affrontano la gelosia e l'amicizia." },
-  { _id: ObjectId("69207cbb8023c7de1f32a05d"), id: 34, titolo: 'Your Name', stelle: 0, regista: 'Makoto Shinkai', uscita: '2016', genere: 'Animazione', immagine: 'images/your-name.jpg', trama: 'Due adolescenti scoprono di scambiarsi i corpi in modo misterioso e cercano di incontrarsi.' }
+  { _id: ObjectId("69207cbb8023c7de1f32a05c"), id: 33, titolo: 'Toy Story', stelle: 0, regista: 'John Lasseter', uscita: '1995', genere: 'Animazione', immagine: 'images/toy-story.jpg', trama: "I giocattoli di un bambino prendono vita e affrontano la gelosia e l'amicizia." }
 ]);
 
 // ##############################################
@@ -67,7 +66,6 @@ db.utenti.insertMany([
       { film_id: ObjectId("69207cbb8023c7de1f32a048"), voto: 3, stato: "visto", recensione: "Simpatica avventura, semplice ma efficace." },
       { film_id: ObjectId("69207cbb8023c7de1f32a04c"), voto: 4, stato: "visto", recensione: "Ottimi effetti speciali." },
       { film_id: ObjectId("69207cbb8023c7de1f32a058"), voto: 0, stato: "da vedere", recensione: "" },
-      { film_id: ObjectId("69207cbb8023c7de1f32a03f"), voto: 0, stato: "da vedere", recensione: "Trama intrigante, sembra promettente." },
       { film_id: ObjectId("69207cbb8023c7de1f32a045"), voto: 0, stato: "da vedere", recensione: "Ho sentito recensioni positive, voglio confermare." },
       { film_id: ObjectId("69207cbb8023c7de1f32a040"), voto: 5, stato: "visto", recensione: "Fantastico, visivamente incredibile." },
       { film_id: ObjectId("69207cbb8023c7de1f32a041"), voto: 0, stato: "da vedere", recensione: "Sembra una storia commovente." }

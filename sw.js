@@ -1,10 +1,12 @@
 const cacheName = 'pwaCinematch';
 
+
 const cacheList = [
-    '/', // L'indice della tua app (fondamentale per l'esperienza offline)
     '/manifest.json',
+    '/offline.html',
 
     // css
+    '/static/css/style-offline.css',
     '/static/css/style-landing-page.css',
     '/static/css/style-lista.css',
     '/static/css/style-logged-home-page.css',
@@ -24,11 +26,11 @@ const cacheList = [
 
     // images
     '/static/images/clapperboard.jpg', //icon
+    '/static/images/offline-img.png',
     '/static/images/28-Years-Later.jpg',
     '/static/images/arrival.jpg',
     '/static/images/big-hero-6.jpeg', 
     '/static/images/big-hero-6.jpg', 
-    '/static/images/blackpanther.jpg',
     '/static/images/bladerunner2049.jpg',
     '/static/images/cinema_background.jpg',
     '/static/images/coco.jpg',
@@ -64,51 +66,44 @@ const cacheList = [
 
 
 
+
+
 // 1. 'install' event: Precaching of essential assets
 self.addEventListener('install', e => {
     console.log('Service Worker: Installazione avviata');
-    e.waitUntil(
+    e.waitUntil( 
         caches.open(cacheName)
             .then(cache => {
                 // add every file from the cachelist to the cache.
-                return cache.addAll(cacheList); 
+                cache.addAll(cacheList); 
             })
     );
 });
 
-
-
-// 2. 'fetch': it cache first and then ask to the network and save in cache 
+// 2. 'fetch': Cache first, then network, and save in cache
 self.addEventListener('fetch', event => {
 
+    // If the request is a navigation request (i.e., a full page load),
+    // we try to fetch it from the network.
+    // If the network is unavailable (offline), we return the offline page.
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request).catch(() => caches.match('/offline.html'))
+        );
+        return; // Stop here so the fallback applies only to HTML page requests
+    }
+
+    // For all other requests (images, CSS, JS, etc.):
+    // 1. Try to serve the file from the cache (cache-first)
+    // 2. If it's not in cache, go to the network
     event.respondWith(
         caches.match(event.request).then(cached => {
-            if (cached) {
-                return cached; // resources in cache
-            }
-
-            return fetch(event.request)
-                .then(response => {
-
-                    // dynamic caching of html pages in backend
-                    if (
-                        response.ok &&
-                        response.headers.get('Content-Type')?.includes('text/html')
-                    ) {
-                        const copy = response.clone();
-                        caches.open('html-pages').then(cache => {
-                            cache.put('/', copy);
-                            cache.put('/landing-page.html', copy);
-                            cache.put(event.request, copy);
-                        });
-                    }
-
-                    return response;
-                })
-                .catch(() => {
-                    // fallback HTML offline
-                    return caches.match('/offline.html');
-                });
+            return cached || fetch(event.request);
         })
     );
 });
+
+
+
+
+

@@ -67,14 +67,14 @@
             <div class="status-wrapper">
               <div id="status-{{ film._id }}" class="movie-status {{ stato_utente.replace(' ', '-') if stato_utente else 'nessuno' }}" onclick="toggleDropdown('{{film._id}}')">
                 {% if stato_utente == 'visto' %}Visto
-                {% elif stato_utente == 'da vedere' %}Da guardare
+                {% elif stato_utente == 'da vedere' %}Da vedere
                 {% else %}Imposta stato{% endif %}
               </div>
 
               <div class="status-dropdown" id="dropdown-{{ film._id }}" style="display:none;">
                 <div onclick="aggiornaStato('{{ film._id }}', 'visto')">Visto</div>
                 <hr>
-                <div onclick="aggiornaStato('{{ film._id }}', 'da vedere')">Da guardare</div>
+                <div onclick="aggiornaStato('{{ film._id }}', 'da vedere')">Da vedere</div>
                 <hr>
                 <div onclick="aggiornaStato('{{ film._id }}', 'nessuno')">Nessuno</div>
               </div>
@@ -84,13 +84,13 @@
         </div>
 
         <!-- Movie textual info -->
-        <p><strong>Genre:</strong> {{ film.genere }}</p>
-        <p><strong>Release year:</strong> {{ film.uscita }}</p>
-        <p><strong>Director:</strong> {{ film.regista }}</p>
+        <p><strong>Genere:  </strong> {{ film.genere }}  </p>
+        <p><strong>Anno:    </strong> {{ film.uscita }}  </p>
+        <p><strong>Regista: </strong> {{ film.regista }} </p>
 
         <!-- User personal review -->
         <div class="recensione-personale-wrapper" data-film-id="{{ film._id }}">
-          <h3>Your review</h3>
+          <h3>La tua recensione</h3>
 
           <!-- Review display -->
           <div id="recensione-view">
@@ -100,7 +100,7 @@
 
           <!-- Review edit form -->
           <form id="recensione-form" style="display: none;" onsubmit="salvaRecensione(event)">
-            <textarea id="textarea-recensione" name="recensione" placeholder="Write your review here...">{{ recensione_utente or '' }}</textarea>
+            <textarea id="textarea-recensione" name="recensione" placeholder="Scrivi qui la tua recensione...">{{ recensione_utente or '' }}</textarea>
             <div class="recensione-buttons">
               <button type="submit">💾 Salva</button>
               <button type="button" onclick="toggleEditor()">❌ Cancella</button>
@@ -113,7 +113,7 @@
 
     <!-- Recommended movies section -->
     <section class="simili">
-      <h2>Recommended Movies</h2>
+      <h2>Film consigliati</h2>
       <div class="carousel">
         {% for suggerito in consigliati %}
         <div class="carousel-item">

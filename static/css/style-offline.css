@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: flex-start; /* allinea a sinistra per poi spostare con % */
+    align-items: center;         /* centro verticale */
+    height: 100vh;
+    text-align: center;
+    padding-left: 70%;           /* sposta proporzionalmente la box verso destra */
+    background: url('/static/images/offline-img.png') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.offline-box {
+    max-width: 320px;
+    /* rimosso padding-right fisso */
+}
+
+.offline-box img {
+    width: 120px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 4em;
+    margin-bottom: 10px;
+    color: black;
+}
+
+p {
+    font-size: 1.2em;
+    opacity: 0.8;
+    margin-bottom: 20px;
+    color: black;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #ff4545;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background: #d63c3c;
+}
